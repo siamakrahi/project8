@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load static widget_tweaks %}
+
+{% block title %} خطای csrf {% endblock %}
+
+{% block content %}
+<div class="text-center mt-5">
+    <h1 class="text-danger">خطای 403: دسترسی ممنوع</h1>
+    <p class="lead">
+        درخواست شما به دلیل عدم تأیید امنیتی (CSRF) رد شد.
+    </p>
+    <p>
+        <a href="/" class="btn btn-primary">بازگشت به صفحه اصلی</a>
+    </p>
+</div>
+{% endblock %}

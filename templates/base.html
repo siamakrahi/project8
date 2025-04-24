@@ -1,0 +1,87 @@
+{% load static %}
+<!DOCTYPE html>
+<html class="no-js" lang="fa" dir="rtl">
+<head>
+    <!-- CSS های مشترک -->
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>{% block title %}سایت من{% endblock %}</title>
+    <meta name="description" content="{% block description %}توضیحات پیش‌فرض سایت{% endblock %}">   
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/img/favicon.png' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/animate.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/magnific-popup.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/fontawesome-all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/flaticon.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/odometer.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/swiper-bundle.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/aos.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/default.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/custom.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/font-css/iransans.css' %}">
+
+    <!-- CSS های اختصاصی -->
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    {% include 'partials/_header.html' %}
+
+    <!-- Preloader -->
+    <div id="preloader">
+        <div id="loader" class="loader">
+            <div class="loader-container">
+                <div class="loader-icon"><img src="{% static 'assets/img/logo/preloader.png' %}" alt="Preloader"></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- دکمه اسکرول به بالا -->
+    <button class="scroll__top scroll-to-target" data-target="html">
+        <i class="fas fa-angle-up"></i>
+    </button>
+    
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    
+    <!-- اسکریپت‌های مشترک -->
+    <script src="{% static 'assets/js/vendor/jquery-3.6.0.min.js'%}"></script>
+    <script src="{% static 'assets/js/bootstrap.bundle.min.js'%}"></script>
+    <script src="{% static 'assets/js/jquery.magnific-popup.min.js'%}"></script>
+    <script src="{% static 'assets/js/jquery.odometer.min.js'%}"></script>
+    <script src="{% static 'assets/js/jquery.appear.js'%}"></script>
+    <script src="{% static 'assets/js/gsap.js'%}"></script>
+    <script src="{% static 'assets/js/ScrollTrigger.js'%}"></script>
+    <script src="{% static 'assets/js/SplitText.js'%}"></script>
+    <script src="{% static 'assets/js/gsap-animation.js'%}"></script>
+    <script src="{% static 'assets/js/jquery.parallaxScroll.min.js'%}"></script>
+    <script src="{% static 'assets/js/swiper-bundle.js'%}"></script>
+    <script src="{% static 'assets/js/ajax-form.js'%}"></script>
+    <script src="{% static 'assets/js/wow.min.js'%}"></script>
+    <script src="{% static 'assets/js/aos.js'%}"></script>
+    <script src="{% static 'assets/js/main.js'%}"></script>
+   
+    <!-- اسکریپت‌های اختصاصی -->
+    {% block extra_js %}{% endblock %}
+
+    <!-- پیام‌های سیستم -->
+    {% if messages %}
+        {% for message in messages %}
+            {% if message.tags == 'alert' %}
+                <script>
+                    alert("{{ message|escapejs }}");
+                </script>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+
+
+    {% include 'partials/_footer.html' %}
+    {% block footer_scripts %}{% endblock %}
+
+</body>
+</html>

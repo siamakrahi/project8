@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}پروفایل کاربری - {{ user.get_full_name }}{% endblock %}
+
+{% block extra_css %}
+<style>
+    .profile-container {
+        max-width: 800px;
+        margin: 2rem auto;
+        padding: 2rem;
+        background: #344e41;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .profile-avatar img {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid #eee;
+    }
+    .detail-item {
+        margin-bottom: 1rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid #eee;
+    }
+    .detail-label {
+        font-weight: bold;
+        display: inline-block;
+        width: 120px;
+    }
+</style> 
+{% endblock %}
+
+{% block content %}
+<br><br><br><br><br>
+<div class="profile-container">
+    <h1 class="text-center mb-4">پروفایل کاربری</h1>
+    
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} mb-4">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="d-flex flex-column flex-md-row gap-4 align-items-center">
+        <div class="profile-avatar text-center">
+            <img src="{% if user.avatar %}{{ user.avatar.url }}{% else %}{% static 'images/default-avatar.png' %}{% endif %}" 
+                 alt="عکس پروفایل" class="avatar-img">
+        </div>
+        
+        <div class="flex-grow-1">
+            <h2 class="mb-4">{{ user.get_full_name }}</h2>
+            
+            <div class="detail-item">
+                <span class="detail-label">نام کاربری:</span>
+                <span>{{ user.username }}</span>
+            </div>
+            
+            <div class="detail-item">
+                <span class="detail-label">ایمیل:</span>
+                <span>{{ user.email }}</span>
+            </div>
+            
+            {% if user.about %}
+            <div class="detail-item">
+                <span class="detail-label">درباره من:</span>
+                <p class="mt-2">{{ user.about }}</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="text-center mt-4">
+        <a href="{% url 'edit_profile' %}" class="btn btn-two">ویرایش پروفایل</a>
+    </div>
+</div>
+{% endblock %}

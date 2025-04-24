@@ -1,0 +1,89 @@
+# --- محیط‌های توسعه و مجازی ---
+venv/
+.env
+*.env
+.env.local
+.env.*.local
+.venv/
+env/
+virtualenv/
+pip-selfcheck.json
+.Python
+pyvenv.cfg
+.env.prod
+.env.dev
+
+# --- فایل‌های سیستم و IDE ---
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo
+*.sublime-workspace
+*.sublime-project
+*.komodoproject
+*.kdev4
+
+# --- فایل‌های پایتون ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+*.egg
+.pytest_cache/
+.mypy_cache/
+*.manifest
+*.spec
+
+# --- دیتابیس و فایل‌های موقت ---
+*.sqlite3
+*.db
+*.sql
+db.sqlite3
+*.dump
+*.bak
+*.tmp
+*.log
+
+# --- فایل‌های استاتیک و مدیا ---
+staticfiles/
+media/
+uploads/
+*.css.map
+*.js.map
+
+# --- لاگ‌ها و گزارش‌ها ---
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# --- فایل‌های نصب و بیلد ---
+dist/
+build/
+*.mo
+*.pot
+
+# --- فایل‌های Credential و حساس ---
+credentials/*.json
+*.key
+*.pem
+*.cert
+*.cer
+
+# --- سیستم‌های کنترل نسخه ---
+.git/
+.gitattributes
+.gitmodules
+
+# --- فایل‌های سیستم‌عامل ---
+Thumbs.db
+ehthumbs.db
+[Dd]esktop.ini
+.DS_Store
+
+# --- فایل‌های کامپایل شده ---
+__pycache__/
+*.pyc

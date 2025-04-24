@@ -1,0 +1,302 @@
+/* تم پیشرفته برای پنل ادمین با پالت جدید */
+:root {
+    --primary: #344e41;        /* رنگ اصلی */
+    --secondary: #a3b18a;      /* رنگ ثانویه */
+    --background: #dad7cd;     /* رنگ زمینه */
+    --text-on-primary: #ffffff; /* متن روی رنگ اصلی */
+    --text-on-bg: #3a5a40;     /* متن اصلی */
+    --interactive: #588157;    هایلایت تعاملی */
+    --borders: #b7b7a4;        /* خطوط و بوردرها */
+    --success: #4c956c;        /* موفقیت */
+    --danger: #d62839;         /* خطا */
+    --warning: #f77f00;        /* هشدار */
+    --info: #3a86ff;           /* اطلاعات */
+}
+
+/* فونت فارسی */
+@font-face {
+    font-family: 'IRANSans';
+    src: url('../fonts/IRANSansWeb.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: 'IRANSans', Tahoma, sans-serif;
+    direction: rtl;
+    text-align: right;
+    background-color: var(--background);
+    color: var(--text-on-bg);
+}
+
+/* هدر بهبود یافته با گرادیان طبیعی */
+.main-header {
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(40, 60, 50, 0.15);
+    background: linear-gradient(135deg, var(--primary) 0%, var(--interactive) 100%);
+}
+
+/* کارت‌های مدرن با سایه طبیعی */
+.card {
+    border-radius: 0.5rem;
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(52, 78, 65, 0.1);
+    border: 1px solid var(--borders);
+    margin-bottom: 1.5rem;
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+.card-header {
+    background-color: var(--secondary);
+    border-bottom: 1px solid var(--borders);
+    color: var(--text-on-bg);
+    padding: 1rem 1.35rem;
+    border-radius: 0.5rem 0.5rem 0 0 !important;
+}
+
+/* جدول‌های زیبا با کنتراست مناسب */
+.table {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: var(--text-on-bg);
+    border-color: var(--borders);
+}
+
+.table th {
+    border-top: none;
+    background-color: var(--secondary);
+    font-weight: 600;
+    color: var(--text-on-bg);
+}
+
+/* دکمه‌های مدرن با انیمیشن */
+.btn {
+    border-radius: 0.35rem;
+    padding: 0.5rem 1.25rem;
+    font-weight: 500;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    border-color: var(--primary);
+    color: var(--text-on-primary);
+}
+
+.btn-primary:hover {
+    background-color: #2d453a;
+    border-color: #253c32;
+    transform: translateY(-2px);
+}
+
+/* فرم‌های زیبا با تمرکز مشخص */
+.form-control {
+    border-radius: 0.35rem;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--borders);
+    transition: border-color 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: var(--interactive);
+    box-shadow: 0 0 0 3px rgba(88, 129, 87, 0.25);
+}
+
+/* نوار کناری هماهنگ با پالت */
+.content-wrapper {
+    background-color: var(--background);
+}
+
+.sidebar {
+    background-color: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(52, 78, 65, 0.1);
+    border-right: 1px solid var(--borders);
+}
+
+.sidebar-dark-primary .nav-sidebar>.nav-item>.nav-link.active {
+    background-color: var(--interactive);
+    color: var(--text-on-primary);
+}
+
+/* انیمیشن‌های ظریف */
+.fade-in {
+    animation: fadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* وضعیت‌های مختلف با رنگ‌های جدید */
+.badge {
+    border-radius: 0.25rem;
+    padding: 0.35em 0.65em;
+    font-weight: 600;
+}
+
+.badge-success {
+    background-color: var(--success);
+    color: white;
+}
+
+.badge-danger {
+    background-color: var(--danger);
+    color: white;
+}
+
+/* پیشنمایش تصاویر با حاشیه هماهنگ */
+.image-preview {
+    max-width: 200px;
+    max-height: 200px;
+    border-radius: 0.5rem;
+    border: 1px solid var(--borders);
+    padding: 0.5rem;
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 2px 8px rgba(52, 78, 65, 0.1);
+}
+
+/* آیکون‌های زیبا با رنگ اصلی */
+.icon-lg {
+    font-size: 1.5rem;
+    vertical-align: middle;
+    color: var(--primary);
+}
+
+/* بهبود hover برای عناصر تعاملی */
+tr:hover {
+    background-color: rgba(163, 177, 138, 0.05);
+}
+
+.nav-link:hover {
+    background-color: rgba(163, 177, 138, 0.1);
+}
+
+/* 
+:root {
+    --primary: #4e73df;
+    --secondary: #6c757d;
+    --success: #1cc88a;
+    --info: #36b9cc;
+    --warning: #f6c23e;
+    --danger: #e74a3b;
+    --light: #f8f9fc;
+    --dark: #5a5c69;
+}
+
+@font-face {
+    font-family: 'IRANSans';
+    src: url('../fonts/IRANSansWeb.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: 'IRANSans', Tahoma, sans-serif;
+    direction: rtl;
+    text-align: right;
+    background-color: #a3b18a;
+}
+
+.main-header {
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+    background: linear-gradient(135deg, var(--primary) 0%, #a3b18a 100%);
+}
+
+.card {
+    border-radius: 0.5rem;
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
+    border: none;
+    margin-bottom: 1.5rem;
+}
+
+.card-header {
+    background-color: #dad7cd;
+    border-bottom: 1px solid #e3e6f0;
+    padding: 1rem 1.35rem;
+    border-radius: 0.5rem 0.5rem 0 0 !important;
+}
+
+.table {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #5a5c69;
+}
+
+.table th {
+    border-top: none;
+    background-color: #f8f9fa;
+    font-weight: 600;
+}
+
+.btn {
+    border-radius: 0.35rem;
+    padding: 0.5rem 1.25rem;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    border-color: var(--primary);
+}
+
+.btn-primary:hover {
+    background-color: #2e59d9;
+    border-color: #2653d4;
+}
+
+.form-control {
+    border-radius: 0.35rem;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #d1d3e2;
+}
+
+.content-wrapper {
+    background-color: #f8f9fc;
+}
+
+.sidebar {
+    background-color: #fff;
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
+}
+
+.sidebar-dark-primary .nav-sidebar>.nav-item>.nav-link.active {
+    background-color: var(--primary);
+    color: #fff;
+}
+
+.fade-in {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.badge {
+    border-radius: 0.25rem;
+    padding: 0.35em 0.65em;
+    font-weight: 600;
+}
+
+.badge-success {
+    background-color: var(--success);
+}
+
+.badge-danger {
+    background-color: var(--danger);
+}
+
+.image-preview {
+    max-width: 200px;
+    max-height: 200px;
+    border-radius: 0.5rem;
+    border: 1px solid #e3e6f0;
+    padding: 0.5rem;
+    background-color: #fff;
+}
+
+.icon-lg {
+    font-size: 1.5rem;
+    vertical-align: middle;
+} */

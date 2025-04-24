@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load static widget_tweaks %}
+
+{% block title %}ورود{% endblock %}
+
+{% block content %}
+<main class="fix">
+    <section class="register__area-one">
+        <div class="container">
+            <div class="text-center mb-55">
+                <h1 class="text-48-bold">خوش آمدید</h1>
+            </div>
+            <div class="box-form-login">
+                <div class="head-login">
+                    <!-- نمایش پیام‌ها -->
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
+
+                    <form method="post">
+                        {% csrf_token %}
+                        <h3>ورود</h3>
+                        <p>با نام کاربری و رمز ورود خود وارد شوید</p>
+                        <div class="form-login">
+                            <div class="form-floating">
+                                {% render_field form.username class="form-control" id="floatingInput" placeholder="نام کاربری" %}
+                            </div>
+                            <br>
+                            <div class="form-floating">
+                                {% render_field form.password class="form-control" id="floatingPassword" placeholder="رمز عبور" %}
+                            </div>
+                            <br>
+                            <div class="box-forgot-pass">
+                                <a href="{% url 'password_reset' %}">رمز عبور خود را فراموش کردید؟</a>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-login">ورود به حساب کاربری</button>
+                            </div>
+                            <br>
+                            <p>حساب کاربری ندارید؟ <a class='link-bold' href="{% url 'signup' %}">ثبت نام</a> کنید</p>
+                        </div>
+                    </form> 
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}

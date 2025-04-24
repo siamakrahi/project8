@@ -1,0 +1,412 @@
+{% load static %}
+<div class="chat-widget-container">
+    <!-- آیکن شناور چت -->
+    <div class="chat-icon" id="chatIcon">
+        <div class="chat-icon-circle">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#A3B18A">
+                <path d="M12 3c5.514 0 10 3.476 10 7.747 0 4.272-4.48 7.748-10 7.748-1.425 0-2.801-.227-4.06-.646l-3.584 1.126 1.106-3.183c-.728-1.157-1.162-2.496-1.162-3.945C3.999 6.476 8.484 3 12 3zm0-2C6.486 1 2 5.037 2 10.247c0 1.754.593 3.377 1.599 4.689L1 23l6.437-2.023c1.454.553 3.091.871 4.776.871 5.512 0 9.987-4.037 9.987-9.257C22 5.037 17.514 1 12 1z"/>
+            </svg>
+        </div>
+    </div>
+
+    <!-- پنجره چت -->
+    <div class="chat-window" id="chatWindow">
+        <div class="chat-header">
+            <div class="chat-title">
+                <div class="chat-avatar">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#DAD7CD">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+                    </svg>
+                </div>
+                <div class="chat-info">
+                    <h5>ربات پشتیبان هوشمند</h5>
+                    <span class="chat-status">آنلاین</span>
+                </div>
+            </div>
+            <div class="chat-actions">
+                <button class="chat-action-btn minimize-btn" id="minimizeChat">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#DAD7CD" viewBox="0 0 16 16">
+                        <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
+                    </svg>
+                </button>
+                <button class="chat-action-btn close-btn" id="closeChat">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#DAD7CD" viewBox="0 0 16 16">
+                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div class="chat-body" id="chatBody">
+            <div class="welcome-message">
+                <p>سلام! 👋 من ربات پشتیبان شما هستم. چطور می‌توانم کمکتان کنم؟</p>
+                <div class="quick-replies">
+                    <button class="quick-reply-btn">سوالات متداول</button>
+                    <button class="quick-reply-btn">تماس با پشتیبانی</button>
+                    <button class="quick-reply-btn">درباره ما</button>
+                </div>
+            </div>
+            <div id="chatMessages"></div>
+        </div>
+        <div class="chat-input-container">
+            <div class="typing-indicator" id="typingIndicator">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="chat-input">
+                <input type="text" id="messageInput" placeholder="پیام خود را بنویسید...">
+                <button id="sendMessage" class="send-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#DAD7CD" viewBox="0 0 16 16">
+                        <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11zM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.chat-widget-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    font-family: 'IRANSans', sans-serif;
+}
+
+/* آیکن چت */
+.chat-icon {
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: flex-end;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.chat-icon.hidden {
+    opacity: 0;
+    transform: translateY(20px);
+    pointer-events: none;
+}
+
+.chat-icon-circle {
+    background-color: #344E41;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    transition: all 0.3s ease;
+}
+
+.chat-icon:hover .chat-icon-circle {
+    transform: scale(1.05);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+}
+
+/* پنجره چت */
+.chat-window {
+    display: none;
+    width: 380px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    direction: rtl;
+    overflow: hidden;
+    transform: translateY(20px);
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.chat-window.active {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* هدر چت */
+.chat-header {
+    background: #3A5A40;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chat-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.chat-avatar {
+    width: 40px;
+    height: 40px;
+    background-color: #344E41;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chat-info h5 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.chat-status {
+    font-size: 12px;
+    color: #DAD7CD;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.chat-status::before {
+    content: '';
+    display: block;
+    width: 8px;
+    height: 8px;
+    background-color: #A3B18A;
+    border-radius: 50%;
+}
+
+.chat-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.chat-action-btn {
+    background: none;
+    border: none;
+    color: #DAD7CD;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.chat-action-btn:hover {
+    background-color: rgba(255,255,255,0.1);
+}
+
+/* بدنه چت */
+.chat-body {
+    height: 400px;
+    overflow-y: auto;
+    padding: 20px;
+    background-color: #DAD7CD;
+    display: flex;
+    flex-direction: column;
+}
+
+.welcome-message {
+    background-color: #A3B18A;
+    color: #344E41;
+    padding: 12px 16px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.welcome-message p {
+    margin: 0 0 12px 0;
+    font-size: 14px;
+}
+
+.quick-replies {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+}
+
+.quick-reply-btn {
+    background-color: #344E41;
+    color: #DAD7CD;
+    border: none;
+    border-radius: 20px;
+    padding: 6px 12px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.quick-reply-btn:hover {
+    background-color: #3A5A40;
+}
+
+#chatMessages {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex-grow: 1;
+    justify-content: flex-end;
+}
+
+.message-bubble {
+    padding: 10px 14px;
+    border-radius: 12px;
+    max-width: 80%;
+    font-size: 14px;
+    line-height: 1.5;
+    position: relative;
+}
+
+.user-message {
+    background-color: #3A5A40;
+    color: #DAD7CD;
+    align-self: flex-end;
+    border-bottom-right-radius: 4px;
+}
+
+.bot-message {
+    background-color: #A3B18A;
+    color: #344E41;
+    align-self: flex-start;
+    border-bottom-left-radius: 4px;
+}
+
+.message-time {
+    font-size: 10px;
+    opacity: 0.7;
+    margin-top: 4px;
+    text-align: left;
+}
+
+/* ورودی چت */
+.chat-input-container {
+    padding: 15px;
+    background-color: #3A5A40;
+    position: relative;
+}
+
+.typing-indicator {
+    display: none;
+    position: absolute;
+    top: -25px;
+    right: 15px;
+    background-color: #A3B18A;
+    padding: 5px 12px;
+    border-radius: 12px 12px 0 0;
+    gap: 4px;
+}
+
+.typing-indicator span {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background-color: #344E41;
+    border-radius: 50%;
+    animation: typing 1.4s infinite ease-in-out;
+}
+
+.typing-indicator span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.typing-indicator span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes typing {
+    0%, 60%, 100% { transform: translateY(0); }
+    30% { transform: translateY(-4px); }
+}
+
+.chat-input {
+    display: flex;
+    gap: 10px;
+}
+
+#messageInput {
+    flex: 1;
+    padding: 10px 15px;
+    border: 1px solid #A3B18A;
+    border-radius: 24px;
+    background-color: #344E41;
+    color: #DAD7CD;
+    outline: none;
+}
+
+#messageInput::placeholder {
+    color: #A3B18A;
+    opacity: 0.7;
+}
+
+.send-btn {
+    width: 44px;
+    height: 44px;
+    background-color: #A3B18A;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.send-btn:hover {
+    background-color: #DAD7CD;
+}
+
+.send-btn svg {
+    transition: all 0.2s ease;
+}
+
+.send-btn:hover svg {
+    fill: #344E41;
+}
+
+/* رسپانسیو */
+@media (max-width: 767px) {
+    .chat-window {
+        width: 90% !important;
+        right: 5% !important;
+        left: auto !important;
+        max-height: 70vh;
+    }
+    
+    .chat-icon {
+        right: 10px !important;
+        left: auto !important;
+    }
+    
+    .chat-icon-circle {
+        width: 50px !important;
+        height: 50px !important;
+    }
+    
+    .chat-body {
+        height: 60vh;
+    }
+}
+</style>
+
+{% block extra_js %}
+<script>
+    document.getElementById("chatIcon").addEventListener("click", function() {
+        const chatWindow = document.getElementById("chatWindow");
+        chatWindow.style.display = chatWindow.style.display === "block" ? "none" : "block";
+    });
+
+    document.getElementById("closeChat").addEventListener("click", function() {
+        document.getElementById("chatWindow").style.display = "none";
+    });
+
+    document.getElementById("minimizeChat").addEventListener("click", function() {
+        const chatBody = document.getElementById("chatBody");
+        chatBody.style.display = chatBody.style.display === "none" ? "block" : "none";
+    });
+</script>
+
+{% endblock %}

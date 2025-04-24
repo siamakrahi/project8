@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+{% load static widget_tweaks %}
+
+{% block title %}ویرایش پروفایل - {{ user.get_full_name }}{% endblock %}
+
+{% block extra_css %}
+<style>
+    .edit-profile-container {
+        max-width: 800px;
+        margin: 2rem auto;
+        padding: 2rem;
+        background: #344e41;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .avatar-upload {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+        margin-bottom: 2rem;
+    }
+    .avatar-preview {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid #eee;
+    }
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+    .form-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 1rem;
+        margin-top: 2rem;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<br>
+<br>
+<br>
+<br>
+<br>
+<div class="edit-profile-container">
+    <h1 class="text-center mb-4">ویرایش پروفایل</h1>
+    
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} mb-4">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <div class="avatar-upload">
+            <div>
+                <img id="avatar-preview" 
+                     src="{% if user.avatar %}{{ user.avatar.url }}{% else %}{% static 'images/default-avatar.png' %}{% endif %}" 
+                     class="avatar-preview" 
+                     alt="عکس پروفایل">
+            </div>
+            <div class="flex-grow-1">
+                <label class="form-label">عکس پروفایل</label>
+                <input type="file" class="form-control" name="avatar" accept="image/*" id="id_avatar">
+                {% if form.avatar.errors %}
+                    <div class="text-danger small mt-1">{{ form.avatar.errors }}</div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="form-label">نام</label>
+                    {% render_field form.first_name class="form-control" %}
+                    {% if form.first_name.errors %}
+                        <div class="text-danger small mt-1">{{ form.first_name.errors }}</div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="form-label">نام خانوادگی</label>
+                    {% render_field form.last_name class="form-control" %}
+                    {% if form.last_name.errors %}
+                        <div class="text-danger small mt-1">{{ form.last_name.errors }}</div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">ایمیل</label>
+            {% render_field form.email class="form-control" %}
+            {% if form.email.errors %}
+                <div class="text-danger small mt-1">{{ form.email.errors }}</div>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">درباره من</label>
+            {% render_field form.about class="form-control" rows="4" %}
+            {% if form.about.errors %}
+                <div class="text-danger small mt-1">{{ form.about.errors }}</div>
+            {% endif %}
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-two">ذخیره تغییرات</button>
+            <a href="{% url 'profile' %}" class="btn btn-two">انصراف</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.getElementById('id_avatar').addEventListener('change', function(e) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        document.getElementById('avatar-preview').src = e.target.result;
+    }
+    reader.readAsDataURL(this.files[0]);
+});
+</script>
+{% endblock %}

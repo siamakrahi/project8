@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-7 pt-5"> 
+    <div class="search-results-wrapper mt-5"> 
+        <h2 class="mb-4 mt-7">نتایج جستجو برای "{{ query }}"</h2> 
+        
+        {% if results %}
+            <ul class="list-group mt-5 mb-7">
+                {% for result in results %}
+                    <li class="list-group-item">
+                        <h5 class="mb-3">
+                            <a href="{% url result.url %}">{{ result.title }}</a>
+                        </h5>
+                        <p class="text-muted">{{ result.snippet }}</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <div class="alert alert-info mt-7 mb-7">
+                هیچ نتیجه‌ای برای "{{ query }}" یافت نشد.
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
