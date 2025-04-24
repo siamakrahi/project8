@@ -1,0 +1,9 @@
+@font-face {
+	font-family: aviny;
+	font-style: normal;
+	src: url('../../fonts/Aviny/aviny.ttf') format('truetype');
+}
+.banner-content .title, .slider__single.swiper-slide-active .slider__content .title {
+    font-family: aviny !important;
+    letter-spacing: -1px; 
+}

@@ -1,0 +1,141 @@
+/* تم پیشرفته برای پنل ادمین */
+:root {
+    --primary: #4e73df;
+    --secondary: #6c757d;
+    --success: #1cc88a;
+    --info: #36b9cc;
+    --warning: #f6c23e;
+    --danger: #e74a3b;
+    --light: #f8f9fc;
+    --dark: #5a5c69;
+}
+
+/* فونت فارسی */
+@font-face {
+    font-family: 'IRANSans';
+    src: url('../fonts/IRANSansWeb.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: 'IRANSans', Tahoma, sans-serif;
+    direction: rtl;
+    text-align: right;
+    background-color: #f8f9fc;
+}
+
+/* هدر بهبود یافته */
+.main-header {
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+    background: linear-gradient(135deg, var(--primary) 0%, #224abe 100%);
+}
+
+/* کارت‌های مدرن */
+.card {
+    border-radius: 0.5rem;
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
+    border: none;
+    margin-bottom: 1.5rem;
+}
+
+.card-header {
+    background-color: #f8f9fc;
+    border-bottom: 1px solid #e3e6f0;
+    padding: 1rem 1.35rem;
+    border-radius: 0.5rem 0.5rem 0 0 !important;
+}
+
+/* جدول‌های زیبا */
+.table {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #5a5c69;
+}
+
+.table th {
+    border-top: none;
+    background-color: #f8f9fa;
+    font-weight: 600;
+}
+
+/* دکمه‌های مدرن */
+.btn {
+    border-radius: 0.35rem;
+    padding: 0.5rem 1.25rem;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    border-color: var(--primary);
+}
+
+.btn-primary:hover {
+    background-color: #2e59d9;
+    border-color: #2653d4;
+}
+
+/* فرم‌های زیبا */
+.form-control {
+    border-radius: 0.35rem;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #d1d3e2;
+}
+
+/* نوار کناری بهبود یافته */
+.content-wrapper {
+    background-color: #f8f9fc;
+}
+
+.sidebar {
+    background-color: #fff;
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
+}
+
+.sidebar-dark-primary .nav-sidebar>.nav-item>.nav-link.active {
+    background-color: var(--primary);
+    color: #fff;
+}
+
+/* انیمیشن‌های ظریف */
+.fade-in {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* وضعیت‌های مختلف */
+.badge {
+    border-radius: 0.25rem;
+    padding: 0.35em 0.65em;
+    font-weight: 600;
+}
+
+.badge-success {
+    background-color: var(--success);
+}
+
+.badge-danger {
+    background-color: var(--danger);
+}
+
+/* پیشنمایش تصاویر */
+.image-preview {
+    max-width: 200px;
+    max-height: 200px;
+    border-radius: 0.5rem;
+    border: 1px solid #e3e6f0;
+    padding: 0.5rem;
+    background-color: #fff;
+}
+
+/* آیکون‌های زیبا */
+.icon-lg {
+    font-size: 1.5rem;
+    vertical-align: middle;
+}
