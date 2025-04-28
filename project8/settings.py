@@ -48,8 +48,10 @@ INSTALLED_APPS = [
     "whitenoise.runserver_nostatic",
     "django.contrib.sites",
     "widget_tweaks",
-    "channels",
     "app_accounting",
+    "app_chatbot",
+    "channels",
+    "daphne",
 ]
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
@@ -151,25 +153,6 @@ MESSAGE_TAGS = {
 
 MESSAGE_STORAGE = "django.contrib.messages.storage.session.SessionStorage"
 
-
-CHANNEL_LAYERS = {
-    "default": {
-        "BACKEND": "channels_redis.core.RedisChannelLayer",
-        "CONFIG": {
-            "hosts": [("redis://127.0.0.1:6379/0")],
-        },
-    }
-}
-
-DIALOGFLOW_SETTINGS = {
-    "project_id": os.getenv("DIALOGFLOW_PROJECT_ID"),
-    "credentials_path": os.path.join(BASE_DIR, os.getenv("DIALOGFLOW_TOKEN")),
-    "language_code": "fa",  # زبان فارسی
-    "timeout": 30,  # زمان انتظار برای پاسخ
-}
-
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = DIALOGFLOW_SETTINGS["credentials_path"]
-
 # Database
 DATABASES = {
     "default": {
@@ -252,3 +235,11 @@ if not DEBUG:
 if DEBUG:
     import socket
     ALLOWED_HOSTS.append(socket.gethostbyname(socket.gethostname()))
+
+# تنظیمات ASGI برای Channels
+ASGI_APPLICATION = 'project8.routing.application'
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
+    }
+}

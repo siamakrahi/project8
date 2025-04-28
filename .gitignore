@@ -47,11 +47,11 @@ db.sqlite3
 *.log
 
 # --- فایل‌های استاتیک و مدیا ---
-staticfiles/
-media/
-uploads/
-*.css.map
-*.js.map
+# staticfiles/
+# media/
+# uploads/
+# *.css.map
+# *.js.map
 
 # --- لاگ‌ها و گزارش‌ها ---
 *.log
@@ -87,3 +87,6 @@ ehthumbs.db
 # --- فایل‌های کامپایل شده ---
 __pycache__/
 *.pyc
+
+
+/credentials/

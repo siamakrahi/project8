@@ -1,5 +1,21 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800;900&display=swap");
 
+/*
+1-root  (line: 19 )
+2-Typography css start (line: 80 )
+3-Input Placeholder (line: 246 )
+4-Common Classes  (line: 266 )
+5-   (line: 266 )
+6-   (line: 266 )
+7-  (line: 266 )
+8-  (line: 266 )
+9-  (line: 266 )
+10-  (line: 266 )
+
+*/
+
+
+
 :root {
   --tg-body-font-family: 'Inter', sans-serif;
   --tg-heading-font-family: 'Outfit', sans-serif;
@@ -629,6 +645,7 @@ textarea {
     transform: scale(1.2);
   }
 }
+
 /*=============================
     - Background color
 ===============================*/
@@ -874,7 +891,7 @@ textarea {
   transition-delay: 0.5s;
   opacity: 0;
   visibility: hidden;
-  background: #000d25;
+  background: #dad7sd;
 }
 .search-popup-overlay.search-popup-overlay-open {
   opacity: 0.55;
@@ -898,6 +915,81 @@ textarea {
   right: auto;
   transition: all 0.5s;
 }
+
+.search__popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #A3B18A;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.search__popup.search-opened {
+  opacity: 1;
+  visibility: visible;
+}
+
+.search__input {
+  width: 80%;
+  max-width: 600px;
+  position: relative;
+}
+
+.search-input-field {
+  width: 100%;
+  padding: 15px 50px 15px 20px;
+  font-size: 18px;
+  border: none;
+  border-bottom: 2px solid var(--tg-theme-primary);
+  background: transparent;
+  color: white;
+}
+
+.search__input button {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.search-focus-border {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--tg-theme-primary);
+  transition: width 0.3s ease;
+}
+
+.search-input-field:focus + .search-focus-border {
+  width: 100%;
+}
+
+.search__close button {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+}
+
 
 /*=========================
 04. Breadcrumb
@@ -1559,7 +1651,7 @@ textarea {
   display: block;
   line-height: 1;
   position: relative;
-  z-index: 1;
+  transition: all 0.3s ease;
 }
 .tgmenu__navbar-wrap > ul > li .sub-menu {
   position: absolute;
@@ -1626,6 +1718,12 @@ textarea {
   visibility: visible;
   transform: scale(1);
 }
+
+.tgmenu__navbar-wrap > ul > li a:hover,
+.tgmenu__navbar-wrap > ul > li.active a {
+    color: var(--tg-theme-primary);
+}
+
 .tgmenu__navbar-wrap > ul > li.active a, .tgmenu__navbar-wrap > ul > li:hover a {
   color: var(--tg-theme-primary);
 }
@@ -1907,6 +2005,8 @@ textarea {
   -webkit-box-shadow: 0 10px 15px rgba(25, 25, 25, 0.1);
   box-shadow: 0 10px 15px rgba(25, 25, 25, 0.1);
   border-radius: 0;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
 }
 .sticky-menu ul li .sub-menu {
   -webkit-border-radius: 0 0 6px 6px;
@@ -1920,6 +2020,74 @@ textarea {
   display: block;
   height: 90px;
 }
+
+.sticky-menu .logo img {
+  max-height: 30px;
+  transition: all 0.3s ease;
+}
+
+.sticky-menu .tgmenu__navbar-wrap > ul > li a {
+  padding: 25px 0;
+  transition: all 0.3s ease;
+}
+
+/* User Menu Styles */
+.user-menu {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: 20px;
+}
+
+.user-menu a {
+  color: var(--tg-theme-secondary);
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.3s ease;
+}
+
+.user-menu a:hover {
+  color: var(--tg-theme-primary);
+}
+
+.user-menu .user-link {
+  position: relative;
+  padding-right: 15px;
+}
+
+.user-menu .user-link::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 15px;
+  background: var(--tg-color-gray-5);
+}
+
+.user-menu .logout-link,
+.user-menu .signin-link,
+.user-menu .signup-link {
+  padding: 8px 12px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.user-menu .logout-link:hover,
+.user-menu .signin-link:hover,
+.user-menu .signup-link:hover {
+  background: var(--tg-theme-primary);
+  color: white;
+}
+
+.username {
+  font-size: 13px;
+  font-weight: 500;
+}
+
 
 /*=============================
 	03. Mobile Menu
@@ -2287,6 +2455,67 @@ textarea {
   -ms-transform: rotate(360deg);
   -o-transform: rotate(360deg);
   transform: rotate(360deg);
+}
+
+
+/* Mobile Menu User Section */
+.tgmobile__menu-bottom .header-btn {
+  margin: 5px 0;
+}
+
+.tgmobile__menu-bottom .header-btn a {
+  width: 100%;
+  text-align: center;
+  padding: 10px 15px;
+  margin: 5px 0;
+}
+
+.tgmobile__menu .navigation ul li a {
+  padding: 12px 20px;
+  display: block;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--tg-body-color);
+}
+
+.tgmobile__menu .navigation ul li a:hover {
+  color: var(--tg-theme-primary);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+
+.user-dropdown {
+  position: relative;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: white;
+  min-width: 150px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 99;
+}
+
+.user-dropdown:hover .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+}
+
+.dropdown-menu a {
+  display: block;
+  padding: 10px 15px;
+  color: var(--tg-heading-color);
+  border-bottom: 1px solid #f5f5f5;
+}
+
+.dropdown-menu a:hover {
+  background: var(--tg-theme-primary);
+  color: white;
 }
 
 /*=============================
@@ -12793,6 +13022,27 @@ blockquote p {
 /*=============================
     00. Keyframe Animation
 ===============================*/
+.tgmobile__menu-box {
+  transform: translateX(100%);
+  transition: all 0.4s ease;
+}
+
+.tgmobile__menu.active .tgmobile__menu-box {
+  transform: translateX(0);
+}
+
+.tgmobile__menu-backdrop {
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.4s ease;
+}
+
+.tgmobile__menu.active .tgmobile__menu-backdrop {
+  opacity: 1;
+  visibility: visible;
+}
+
+
 @-webkit-keyframes hoverShine {
   100% {
     left: 125%;

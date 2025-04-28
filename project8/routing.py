@@ -1,12 +1,6 @@
-import os
-import django
-from django.core.asgi import get_asgi_application
 from channels.routing import ProtocolTypeRouter, URLRouter
 from channels.auth import AuthMiddlewareStack
-
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'project8.settings')
-django.setup()  # این خط باید قبل از ایمپورت‌های دیگر باشد
-
+from django.core.asgi import get_asgi_application
 import app_chatbot.routing
 
 application = ProtocolTypeRouter({
