@@ -30,6 +30,13 @@
                         <li class="header-search">
                             <a href="#" class="search-toggler"><i class="fas fa-search"></i></a>
                         </li>
+
+                        <li class="dark-mode-toggle">
+                            <button class="mode-switcher-btn" aria-label="تغییر حالت رنگ">
+                                <i class="fas fa-moon light-icon"></i>
+                                <i class="fas fa-sun dark-icon"></i>
+                            </button>
+                        </li>
                         
                         <!-- منوی کاربر بهبود یافته -->
                         <li class="user-auth-section">
@@ -71,7 +78,7 @@
                                 </div>
                             {% endif %}
                         </li>
-                        
+
                         <!-- دکمه منوی موبایل بهبود یافته -->
                         <li class="ham-menu-toggle">
                             <button class="ham-menu-btn ham-nav-toggler">
@@ -163,7 +170,6 @@
 <div class="search-popup-overlay"></div>
 
 <style>
-
 /* چیدمان هدر */
 .header-wrapper {
     padding-right: 48px;
@@ -364,7 +370,7 @@
 
 /* لوگو */
 .logo {
-    disply: flex;
+    display: flex;
     margin: auto; /* فاصله از سمت راست */
     padding-left: 15px;
 }
@@ -522,6 +528,171 @@
         margin-left: 0;
     }
 
+    /* دکمه دارک مود - به روزرسانی شده */
+    .dark-mode-toggle {
+        order: 1; /* تغییر ترتیب برای چیدمان بهتر */
+        margin-left: 12px;
+    }
+
+    .mode-switcher-btn {
+        background: rgba(0, 0, 0, 0.05);
+        border: none;
+        cursor: pointer;
+        padding: 8px;
+        border-radius: 50%;
+        width: 38px;
+        height: 38px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .mode-switcher-btn:hover {
+        background: var(--tg-theme-primary);
+        transform: scale(1.1);
+    }
+
+    .mode-switcher-btn i {
+        position: absolute;
+        font-size: 16px;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .light-icon {
+        color: var(--tg-color-dark);
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+    }
+
+    .dark-icon {
+        color: var(--tg-theme-secondary);
+        opacity: 0;
+        transform: scale(0.5) rotate(90deg);
+    }
+
+    [data-theme="dark"] .mode-switcher-btn {
+        background: rgba(255, 255, 255, 0.1);
+    }
+
+    [data-theme="dark"] .mode-switcher-btn:hover {
+        background: var(--tg-theme-secondary);
+    }
+
+    [data-theme="dark"] .light-icon {
+        opacity: 0;
+        transform: scale(0.5) rotate(-90deg);
+    }
+
+    [data-theme="dark"] .dark-icon {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+    }
+
+    @media (max-width: 768px) {
+        .dark-mode-toggle {
+            margin-left: 8px;
+        }
+        
+        .mode-switcher-btn {
+            width: 34px;
+            height: 34px;
+        }
+    }
+    /* تغییر زبان */
+    .language-switcher {
+        position: relative;
+        margin-left: 15px;
+    }
+
+    .language-dropdown {
+        position: relative;
+    }
+
+    .language-toggle {
+        background: rgba(0, 0, 0, 0.05);
+        border: none;
+        border-radius: 6px;
+        padding: 8px 12px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        transition: all 0.3s ease;
+    }
+
+    .language-toggle:hover {
+        background: rgba(0, 0, 0, 0.1);
+    }
+
+    .current-language {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .language-flag {
+        font-size: 16px;
+    }
+
+    .language-text {
+        font-size: 14px;
+    }
+
+    .language-options {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        list-style: none;
+        padding: 8px 0;
+        margin: 8px 0 0;
+        min-width: 120px;
+        z-index: 1000;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(10px);
+        transition: all 0.3s ease;
+    }
+
+    .language-dropdown:hover .language-options {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+    .language-options a {
+        display: block;
+        padding: 8px 16px;
+        color: #333;
+        text-decoration: none;
+        transition: all 0.2s ease;
+    }
+
+    .language-options a:hover {
+        background: #f5f5f5;
+    }
+
+    .language-options .active {
+        color: #3A5A40;
+        font-weight: 500;
+    }
+
+    /* رسپانسیو */
+    @media (max-width: 768px) {
+        .language-text {
+            display: none;
+        }
+        
+        .language-toggle {
+            padding: 8px;
+            width: 40px;
+            justify-content: center;
+        }
+    }
+
 }
 </style>
 
@@ -607,5 +778,30 @@ document.addEventListener('DOMContentLoaded', function() {
             toast.remove();
         }, 5000);
     }
+    // تغییر زبان
+    document.addEventListener('DOMContentLoaded', function() {
+        const languageDropdowns = document.querySelectorAll('.language-dropdown');
+        
+        languageDropdowns.forEach(dropdown => {
+            dropdown.addEventListener('mouseenter', function() {
+                const options = this.querySelector('.language-options');
+                if (options) {
+                    options.style.opacity = '1';
+                    options.style.visibility = 'visible';
+                    options.style.transform = 'translateY(0)';
+                }
+            });
+            
+            dropdown.addEventListener('mouseleave', function() {
+                const options = this.querySelector('.language-options');
+                if (options) {
+                    options.style.opacity = '0';
+                    options.style.visibility = 'hidden';
+                    options.style.transform = 'translateY(10px)';
+                }
+            });
+        });
+    });
+
 });
 </script>

@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block extra_css %}
+<style>
+    .auth-container {
+        max-width: 800px;
+        margin: 2rem auto;
+        padding: 2rem;
+        background: #344e41;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .auth-header {
+        color: #dad7cd;
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+    .radio-options {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+    .radio-option {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+    .radio-option input {
+        width: 18px;
+        height: 18px;
+    }
+    .form-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 1rem;
+        margin-top: 2rem;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<br><br><br><br><br>
+<div class="auth-container">
+    <h1 class="auth-header">انتخاب روش احراز هویت دو مرحله‌ای</h1>
+    
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} mb-4">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label class="detail-label">روش احراز هویت:</label>
+            <div class="radio-options">
+                {% for choice in form.method %}
+                    <div class="radio-option">
+                        {{ choice.tag }}
+                        <label for="{{ choice.id_for_label }}">{{ choice.choice_label }}</label>
+                    </div>
+                {% endfor %}
+            </div>
+            {% if form.method.errors %}
+                <div class="text-danger small mt-1">{{ form.method.errors }}</div>
+            {% endif %}
+        </div>
+        
+        <div id="phone-field" class="form-group" style="display: none;">
+            <label class="detail-label" for="id_phone_number">شماره تلفن:</label>
+            {{ form.phone_number }}
+            {% if form.phone_number.errors %}
+                <div class="text-danger small mt-1">{{ form.phone_number.errors }}</div>
+            {% endif %}
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-two">ادامه</button>
+        </div>
+    </form>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const methodSelect = document.querySelector('input[name="method"]:checked');
+    const phoneField = document.getElementById('phone-field');
+    
+    if (methodSelect && methodSelect.value === 'sms') {
+        phoneField.style.display = 'block';
+    }
+    
+    document.querySelectorAll('input[name="method"]').forEach(radio => {
+        radio.addEventListener('change', function() {
+            phoneField.style.display = this.value === 'sms' ? 'block' : 'none';
+        });
+    });
+});
+</script>
+{% endblock %}

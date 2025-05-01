@@ -9,7 +9,8 @@ from django.conf.urls.static import static
 from django.urls import path
 from django.contrib.auth import views as auth_views
 from app_accounting import views
-from app_accounting.views import search_pages, password_reset_view, profile_view
+from app_accounting.views import search_pages, password_reset_view, profile_view, resend_sms_code
+from app_accounting.views import verify_2fa  # اضافه کردن این خط
 
 urlpatterns = [
     # Profile management
@@ -55,4 +56,15 @@ urlpatterns = [
 
     # Search functionality
     path("search/", search_pages, name="search"),
+    
+    # 2FA
+    path('verify-2fa/', views.verify_2fa, name='verify_2fa'),
+    path('setup_2fa/', views.setup_2fa, name='setup_2fa'),
+    path('disable-2fa/', views.disable_2fa, name='disable_2fa'),
+    path('setup-totp/', views.setup_totp, name='setup_totp'),
+    path('verify-sms/', views.verify_sms, name='verify_sms'),
+    path('choose_2fa_method/', views.setup_2fa, name='choose_2fa_method'),
+    
+    path('resend-sms-code/', resend_sms_code, name='resend_sms_code'),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

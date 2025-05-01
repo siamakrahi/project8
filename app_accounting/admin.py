@@ -8,6 +8,8 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import gettext_lazy as _
 from app_accounting.models import User, MessagingModel, ConsultingModel, Service
+from parler.admin import TranslatableAdmin
+from app_accounting.models import ServiceTrans
 
     
 class UserAdmin(UserAdmin):
@@ -106,6 +108,12 @@ class ServiceAdmin(admin.ModelAdmin):
             return format_html(f'<img src="{obj.image.url}" style="max-height: 100px; max-width: 100px;" />')
         return "-"
     image_preview.short_description = 'پیش‌نمایش تصویر'
+
+
+@admin.register(ServiceTrans)
+class ServiceTransAdmin(TranslatableAdmin):
+    list_display = ('title', 'is_active', 'order')
+    list_editable = ('is_active', 'order')
 
 
 # Register models in admin site

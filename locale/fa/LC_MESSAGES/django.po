@@ -1,0 +1,800 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-05-01 23:24+0330\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: app_accounting/admin.py:18
+msgid "Personal info"
+msgstr ""
+
+#: app_accounting/admin.py:28
+msgid "Permissions"
+msgstr ""
+
+#: app_accounting/admin.py:39
+msgid "Important dates"
+msgstr ""
+
+#: app_accounting/middleware.py:27
+msgid ""
+"حساب شما به دلیل تلاش‌های ناموفق متعدد موقتاً مسدود شده است. لطفاً بعداً تلاش "
+"کنید."
+msgstr ""
+
+#: app_accounting/middleware.py:37
+#, python-brace-format
+msgid ""
+"نام کاربری یا رمز عبور نادرست است. شما {remaining} تلاش باقی مانده دارید."
+msgstr ""
+
+#: project8/settings.py:125
+msgid "Persian"
+msgstr ""
+
+#: project8/settings.py:126
+msgid "English"
+msgstr ""
+
+#: templates/app_accounting/choose_2fa_method.html:52
+msgid "Choose Two-Factor Authentication Method"
+msgstr ""
+
+#: templates/app_accounting/choose_2fa_method.html:66
+msgid "Authentication Method:"
+msgstr ""
+
+#: templates/app_accounting/choose_2fa_method.html:81
+msgid "Phone Number:"
+msgstr ""
+
+#: templates/app_accounting/choose_2fa_method.html:89
+msgid "Continue"
+msgstr ""
+
+#: templates/app_accounting/contact.html:4
+#: templates/app_accounting/contact.html:29
+#: templates/app_accounting/contact.html:33 templates/partials/_footer.html:66
+#: templates/partials/_header.html:21 templates/partials/_header.html:136
+msgid "Contact Us"
+msgstr ""
+
+#: templates/app_accounting/contact.html:6
+msgid "Contact our professional team"
+msgstr ""
+
+#: templates/app_accounting/contact.html:32
+#: templates/app_accounting/error_404.html:41
+#: templates/app_accounting/home.html:4 templates/app_accounting/home.html:27
+#: templates/app_accounting/home.html:30 templates/app_accounting/home.html:31
+#: templates/app_accounting/service.html:30
+#: templates/app_accounting/team.html:30 templates/partials/_footer.html:63
+#: templates/partials/_header.html:10 templates/partials/_header.html:18
+#: templates/partials/_header.html:133
+msgid "Home"
+msgstr ""
+
+#: templates/app_accounting/contact.html:55
+#: templates/app_accounting/contact.html:100
+msgid "Send Message"
+msgstr ""
+
+#: templates/app_accounting/contact.html:57
+msgid "Please create an account first and then send your message here."
+msgstr ""
+
+#: templates/app_accounting/contact.html:80
+msgid "Write your message here"
+msgstr ""
+
+#: templates/app_accounting/contact.html:86
+#: templates/app_accounting/contact.html:140
+msgid "Name"
+msgstr ""
+
+#: templates/app_accounting/contact.html:91
+#: templates/app_accounting/contact.html:145
+#: templates/app_accounting/edit_profile.html:99
+#: templates/app_accounting/profile.html:108 templates/password_reset.html:20
+msgid "Email"
+msgstr ""
+
+#: templates/app_accounting/contact.html:96
+#: templates/app_accounting/contact.html:150
+#: templates/app_accounting/profile.html:114
+msgid "Phone Number"
+msgstr ""
+
+#: templates/app_accounting/contact.html:114
+msgid "Request Consultation"
+msgstr ""
+
+#: templates/app_accounting/contact.html:116
+msgid "Please create an account first and then submit your request here."
+msgstr ""
+
+#: templates/app_accounting/contact.html:154
+msgid "Send Request"
+msgstr ""
+
+#: templates/app_accounting/disable_2fa.html:52
+msgid "Disable Two-Factor Authentication"
+msgstr ""
+
+#: templates/app_accounting/disable_2fa.html:55
+msgid "Warning!"
+msgstr ""
+
+#: templates/app_accounting/disable_2fa.html:55
+msgid ""
+"Disabling two-factor authentication will reduce the security of your account."
+msgstr ""
+
+#: templates/app_accounting/disable_2fa.html:58
+msgid "Are you sure you want to disable two-factor authentication?"
+msgstr ""
+
+#: templates/app_accounting/disable_2fa.html:63
+msgid "To confirm, please enter your password:"
+msgstr ""
+
+#: templates/app_accounting/disable_2fa.html:68
+#: templates/app_accounting/profile.html:144
+msgid "Disable"
+msgstr ""
+
+#: templates/app_accounting/disable_2fa.html:69
+#: templates/app_accounting/edit_profile.html:116
+msgid "Cancel"
+msgstr ""
+
+#: templates/app_accounting/edit_profile.html:4
+#: templates/app_accounting/edit_profile.html:48
+#: templates/app_accounting/profile.html:155
+msgid "Edit Profile"
+msgstr ""
+
+#: templates/app_accounting/edit_profile.html:66
+#: templates/app_accounting/edit_profile.html:69
+msgid "Profile Picture"
+msgstr ""
+
+#: templates/app_accounting/edit_profile.html:80
+msgid "First Name"
+msgstr ""
+
+#: templates/app_accounting/edit_profile.html:89
+msgid "Last Name"
+msgstr ""
+
+#: templates/app_accounting/edit_profile.html:107
+#: templates/app_accounting/profile.html:121
+msgid "About Me"
+msgstr ""
+
+#: templates/app_accounting/edit_profile.html:115
+msgid "Save Changes"
+msgstr ""
+
+#: templates/app_accounting/error_404.html:4
+#: templates/app_accounting/error_404.html:38
+msgid "404 Error"
+msgstr ""
+
+#: templates/app_accounting/error_404.html:6
+msgid "404 Error Page"
+msgstr ""
+
+#: templates/app_accounting/error_404.html:42
+msgid "404 Page"
+msgstr ""
+
+#: templates/app_accounting/error_404.html:66
+msgid "We couldn't find it!"
+msgstr ""
+
+#: templates/app_accounting/error_404.html:67
+msgid ""
+"Are you sure you're in the right place?<br>This page doesn't exist or has "
+"been removed. Use the button below to return to the homepage."
+msgstr ""
+
+#: templates/app_accounting/error_404.html:69
+msgid "Back to Previous Page"
+msgstr ""
+
+#: templates/app_accounting/home.html:6
+msgid "Our professional homepage"
+msgstr ""
+
+#: templates/app_accounting/home.html:52
+msgid "We are experts in this field"
+msgstr ""
+
+#: templates/app_accounting/home.html:53
+msgid "Website and Application Design"
+msgstr ""
+
+#: templates/app_accounting/home.html:54
+msgid "We will provide the best solution based on your needs"
+msgstr ""
+
+#: templates/app_accounting/home.html:55 templates/app_accounting/home.html:116
+#: templates/app_accounting/service.html:67
+msgid "Read More"
+msgstr ""
+
+#: templates/app_accounting/home.html:64
+msgid "Follow Us"
+msgstr ""
+
+#: templates/app_accounting/home.html:74
+msgid "Scroll Down"
+msgstr ""
+
+#: templates/app_accounting/home.html:103
+msgid "About Us"
+msgstr ""
+
+#: templates/app_accounting/home.html:104
+msgid "Expand your business and go global with us"
+msgstr ""
+
+#: templates/app_accounting/home.html:113 templates/app_accounting/team.html:53
+#: templates/app_accounting/team.html:56
+msgid "Siamak Rahi"
+msgstr ""
+
+#: templates/app_accounting/home.html:113
+msgid "SEO"
+msgstr ""
+
+#: templates/app_accounting/profile.html:4
+#: templates/app_accounting/profile.html:84
+msgid "User Profile"
+msgstr ""
+
+#: templates/app_accounting/profile.html:96
+#, python-format
+msgid "Profile picture of %(user.get_full_name)s"
+msgstr ""
+
+#: templates/app_accounting/profile.html:103
+#: templates/app_accounting/signin.html:27
+#: templates/app_accounting/signin.html:28
+msgid "Username"
+msgstr ""
+
+#: templates/app_accounting/profile.html:127
+msgid "Security Settings"
+msgstr ""
+
+#: templates/app_accounting/profile.html:131
+msgid "Two-Factor Authentication Status"
+msgstr ""
+
+#: templates/app_accounting/profile.html:134
+msgid "Enabled"
+msgstr ""
+
+#: templates/app_accounting/profile.html:134
+msgid "Method"
+msgstr ""
+
+#: templates/app_accounting/profile.html:136
+msgid "Disabled"
+msgstr ""
+
+#: templates/app_accounting/profile.html:148
+msgid "Change Method"
+msgstr ""
+
+#: templates/app_accounting/profile.html:148
+#: templates/app_accounting/setup_2fa.html:79
+msgid "Enable"
+msgstr ""
+
+#: templates/app_accounting/search_results.html:4
+msgid "Search Results"
+msgstr ""
+
+#: templates/app_accounting/search_results.html:9
+#, python-format
+msgid "Search results for \"%(query)s\""
+msgstr ""
+
+#: templates/app_accounting/search_results.html:24
+#, python-format
+msgid "No results found for \"%(query)s\""
+msgstr ""
+
+#: templates/app_accounting/service.html:4
+#: templates/app_accounting/service.html:27
+#: templates/app_accounting/service.html:31
+msgid "Our Services"
+msgstr ""
+
+#: templates/app_accounting/service.html:6
+msgid "Our professional services"
+msgstr ""
+
+#: templates/app_accounting/service.html:49
+msgid "Our services are as follows:"
+msgstr ""
+
+#: templates/app_accounting/setup_2fa.html:53
+#: templates/app_accounting/setup_totp.html:53
+msgid "Set Up Two-Factor Authentication"
+msgstr ""
+
+#: templates/app_accounting/setup_2fa.html:55
+msgid "To set up two-factor authentication, please follow these steps:"
+msgstr ""
+
+#: templates/app_accounting/setup_2fa.html:58
+msgid "Install Google Authenticator or similar app."
+msgstr ""
+
+#: templates/app_accounting/setup_2fa.html:59
+msgid "Scan the QR code below or enter the manual code."
+msgstr ""
+
+#: templates/app_accounting/setup_2fa.html:60
+msgid "Enter the verification code generated by the app."
+msgstr ""
+
+#: templates/app_accounting/setup_2fa.html:65
+#: templates/app_accounting/setup_totp.html:65
+msgid "Manual Code:"
+msgstr ""
+
+#: templates/app_accounting/setup_2fa.html:71
+#: templates/app_accounting/setup_totp.html:71
+#: templates/app_accounting/verify_2fa.html:54
+#: templates/app_accounting/verify_sms.html:62
+#: templates/app_accounting/verify_totp.html:61
+msgid "Verification Code:"
+msgstr ""
+
+#: templates/app_accounting/setup_totp.html:55
+msgid ""
+"To activate two-factor authentication with Authenticator app, please follow "
+"these steps:"
+msgstr ""
+
+#: templates/app_accounting/setup_totp.html:58
+msgid "Install Google Authenticator or Microsoft Authenticator"
+msgstr ""
+
+#: templates/app_accounting/setup_totp.html:59
+msgid "Scan the QR code below or enter the manual code"
+msgstr ""
+
+#: templates/app_accounting/setup_totp.html:60
+msgid "Enter the 6-digit code generated by the app"
+msgstr ""
+
+#: templates/app_accounting/setup_totp.html:79
+msgid "Activate"
+msgstr ""
+
+#: templates/app_accounting/setup_totp.html:80
+#: templates/app_accounting/verify_sms.html:71
+msgid "Back"
+msgstr ""
+
+#: templates/app_accounting/signin.html:4
+#: templates/app_accounting/signin.html:23
+#: templates/app_accounting/signin.html:40
+#: templates/app_accounting/signup.html:58 templates/partials/_header.html:74
+#: templates/partials/_header.html:159
+msgid "Login"
+msgstr ""
+
+#: templates/app_accounting/signin.html:11
+msgid "Welcome Back"
+msgstr ""
+
+#: templates/app_accounting/signin.html:24
+msgid "Enter your username and password"
+msgstr ""
+
+#: templates/app_accounting/signin.html:32
+#: templates/app_accounting/signin.html:33
+msgid "Password"
+msgstr ""
+
+#: templates/app_accounting/signin.html:37
+msgid "Forgot your password?"
+msgstr ""
+
+#: templates/app_accounting/signin.html:43 templates/password_reset.html:33
+msgid "Don't have an account?"
+msgstr ""
+
+#: templates/app_accounting/signin.html:43
+#: templates/app_accounting/signup.html:4
+#: templates/app_accounting/signup.html:23 templates/partials/_header.html:79
+#: templates/partials/_header.html:165 templates/password_reset.html:33
+msgid "Sign Up"
+msgstr ""
+
+#: templates/app_accounting/signin.html:47
+msgid "Or login with social accounts"
+msgstr ""
+
+#: templates/app_accounting/signin.html:49
+msgid "Login with Google"
+msgstr ""
+
+#: templates/app_accounting/signup.html:11
+msgid "Create Account"
+msgstr ""
+
+#: templates/app_accounting/signup.html:24
+msgid "Please enter the following information"
+msgstr ""
+
+#: templates/app_accounting/signup.html:49
+msgid "Sign up with Google"
+msgstr ""
+
+#: templates/app_accounting/signup.html:54
+msgid "Create Account & Login"
+msgstr ""
+
+#: templates/app_accounting/signup.html:58
+msgid "Already have an account?"
+msgstr ""
+
+#: templates/app_accounting/team.html:4 templates/app_accounting/team.html:27
+#: templates/app_accounting/team.html:31 templates/partials/_footer.html:65
+#: templates/partials/_header.html:20 templates/partials/_header.html:135
+msgid "Our Team"
+msgstr ""
+
+#: templates/app_accounting/team.html:6
+msgid "Meet our professional team"
+msgstr ""
+
+#: templates/app_accounting/team.html:57
+msgid "Instructor and Site Manager"
+msgstr ""
+
+#: templates/app_accounting/team.html:72 templates/app_accounting/team.html:75
+msgid "Parnian Kazemargi"
+msgstr ""
+
+#: templates/app_accounting/team.html:76
+msgid "Project Manager"
+msgstr ""
+
+#: templates/app_accounting/verify_2fa.html:46
+#: templates/app_accounting/verify_totp.html:53
+msgid "Two-Factor Verification"
+msgstr ""
+
+#: templates/app_accounting/verify_2fa.html:48
+msgid ""
+"Please enter the verification code sent to your two-factor authentication "
+"app:"
+msgstr ""
+
+#: templates/app_accounting/verify_2fa.html:62
+#: templates/app_accounting/verify_sms.html:70
+#: templates/app_accounting/verify_totp.html:69
+msgid "Verify"
+msgstr ""
+
+#: templates/app_accounting/verify_sms.html:53
+msgid "Phone Number Verification"
+msgstr ""
+
+#: templates/app_accounting/verify_sms.html:55
+#, python-format
+msgid ""
+"A 6-digit verification code has been sent to <strong>%(phone_number)s</"
+"strong>."
+msgstr ""
+
+#: templates/app_accounting/verify_sms.html:56
+msgid "Please enter the received code:"
+msgstr ""
+
+#: templates/app_accounting/verify_sms.html:77
+msgid "Resend Code"
+msgstr ""
+
+#: templates/app_accounting/verify_sms.html:88
+msgid "Sending..."
+msgstr ""
+
+#: templates/app_accounting/verify_sms.html:103
+#: templates/app_accounting/verify_sms.html:107
+msgid "You can request a new code in"
+msgstr ""
+
+#: templates/app_accounting/verify_sms.html:103
+#: templates/app_accounting/verify_sms.html:107
+msgid "seconds"
+msgstr ""
+
+#: templates/app_accounting/verify_sms.html:119
+msgid "New code sent!"
+msgstr ""
+
+#: templates/app_accounting/verify_sms.html:126
+msgid "Error:"
+msgstr ""
+
+#: templates/app_accounting/verify_sms.html:133
+msgid "Server connection error"
+msgstr ""
+
+#: templates/app_accounting/verify_totp.html:55
+msgid "Please enter the 6-digit code from your Authenticator app:"
+msgstr ""
+
+#: templates/app_accounting/verify_totp.html:70
+msgid "Back to Login"
+msgstr ""
+
+#: templates/app_accounting/verify_totp.html:75
+msgid "Don't have access to your Authenticator app?"
+msgstr ""
+
+#: templates/app_accounting/verify_totp.html:76
+msgid "Use recovery options"
+msgstr ""
+
+#: templates/base.html:10
+msgid "My Website"
+msgstr ""
+
+#: templates/base.html:11
+msgid "Professional website for accounting services"
+msgstr ""
+
+#: templates/base.html:50
+msgid "Loading"
+msgstr ""
+
+#: templates/base.html:56
+msgid "Scroll to top"
+msgstr ""
+
+#: templates/partials/_footer.html:13 templates/partials/_header.html:11
+#: templates/partials/_header.html:128
+msgid "Site Logo"
+msgstr ""
+
+#: templates/partials/_footer.html:33
+msgid "Contact Information"
+msgstr ""
+
+#: templates/partials/_footer.html:60
+msgid "Quick Links"
+msgstr ""
+
+#: templates/partials/_footer.html:64 templates/partials/_header.html:19
+#: templates/partials/_header.html:134
+msgid "Services"
+msgstr ""
+
+#: templates/partials/_footer.html:75
+msgid "Instagram Gallery"
+msgstr ""
+
+#: templates/partials/_footer.html:80 templates/partials/_footer.html:82
+msgid "Instagram post"
+msgstr ""
+
+#: templates/partials/_footer.html:100
+msgid "All Rights Reserved. Designed by"
+msgstr ""
+
+#: templates/partials/_header.html:16
+msgid "Main navigation"
+msgstr ""
+
+#: templates/partials/_header.html:31
+msgid "Search"
+msgstr ""
+
+#: templates/partials/_header.html:38
+msgid "Toggle dark mode"
+msgstr ""
+
+#: templates/partials/_header.html:48
+msgid "User menu"
+msgstr ""
+
+#: templates/partials/_header.html:51
+msgid "User profile"
+msgstr ""
+
+#: templates/partials/_header.html:62 templates/partials/_header.html:146
+msgid "Profile"
+msgstr ""
+
+#: templates/partials/_header.html:66 templates/partials/_header.html:152
+msgid "Logout"
+msgstr ""
+
+#: templates/partials/_header.html:88
+msgid "Language selector"
+msgstr ""
+
+#: templates/partials/_header.html:104
+msgid "Main menu"
+msgstr ""
+
+#: templates/partials/_header.html:122
+msgid "Close menu"
+msgstr ""
+
+#: templates/partials/_header.html:131
+msgid "Mobile navigation"
+msgstr ""
+
+#: templates/partials/_header.html:180
+msgid "Close search"
+msgstr ""
+
+#: templates/partials/_header.html:186
+msgid "Search..."
+msgstr ""
+
+#: templates/partials/_header.html:188
+msgid "Search input"
+msgstr ""
+
+#: templates/partials/_header.html:189
+msgid "Submit search"
+msgstr ""
+
+#: templates/password_reset.html:4
+msgid "Password Reset"
+msgstr ""
+
+#: templates/password_reset.html:11
+msgid "Forgot Password"
+msgstr ""
+
+#: templates/password_reset.html:14
+msgid "Don't worry, we'll send you password reset instructions."
+msgstr ""
+
+#: templates/password_reset.html:19
+msgid "Enter your email"
+msgstr ""
+
+#: templates/password_reset.html:25
+msgid "Send Reset Email"
+msgstr ""
+
+#: templates/password_reset.html:30
+msgid "Go to Login Page"
+msgstr ""
+
+#: templates/registration/custom_password_reset_complete.html:4
+#: templates/registration/custom_password_reset_complete.html:11
+msgid "Password Reset Complete"
+msgstr ""
+
+#: templates/registration/custom_password_reset_complete.html:16
+msgid ""
+"Your password has been successfully reset. You can now log in to your "
+"account."
+msgstr ""
+
+#: templates/registration/custom_password_reset_complete.html:18
+msgid "Log In"
+msgstr ""
+
+#: templates/registration/custom_password_reset_confirm.html:4
+msgid "Password Reset Confirm"
+msgstr ""
+
+#: templates/registration/custom_password_reset_confirm.html:11
+#: templates/registration/custom_password_reset_email.html:6
+#: templates/registration/custom_password_reset_email.html:14
+msgid "Set New Password"
+msgstr ""
+
+#: templates/registration/custom_password_reset_confirm.html:14
+msgid "Please enter your new password in the fields below:"
+msgstr ""
+
+#: templates/registration/custom_password_reset_confirm.html:19
+#: templates/registration/custom_password_reset_confirm.html:20
+msgid "New password"
+msgstr ""
+
+#: templates/registration/custom_password_reset_confirm.html:24
+#: templates/registration/custom_password_reset_confirm.html:25
+msgid "Confirm new password"
+msgstr ""
+
+#: templates/registration/custom_password_reset_confirm.html:29
+msgid "Save Password"
+msgstr ""
+
+#: templates/registration/custom_password_reset_done.html:4
+msgid "Password Reset Email Sent"
+msgstr ""
+
+#: templates/registration/custom_password_reset_done.html:11
+msgid "Email Sent"
+msgstr ""
+
+#: templates/registration/custom_password_reset_done.html:16
+msgid ""
+"Password reset email has been sent to your email address. Please check your "
+"inbox or spam folder."
+msgstr ""
+
+#: templates/registration/custom_password_reset_done.html:18
+msgid "Back to Homepage"
+msgstr ""
+
+#: templates/registration/custom_password_reset_email.html:9
+#: templates/registration/custom_password_reset_email.txt:2
+#, python-format
+msgid "Hello %(user.first_name)s,"
+msgstr ""
+
+#: templates/registration/custom_password_reset_email.html:10
+#: templates/registration/custom_password_reset_email.txt:4
+#, python-format
+msgid ""
+"You're receiving this email because you requested a password reset for your "
+"account at %(site_name)s."
+msgstr ""
+
+#: templates/registration/custom_password_reset_email.html:17
+msgid "Or copy this link into your browser:"
+msgstr ""
+
+#: templates/registration/custom_password_reset_email.html:19
+#: templates/registration/custom_password_reset_email.txt:9
+msgid "Username:"
+msgstr ""
+
+#: templates/registration/custom_password_reset_email.html:20
+#: templates/registration/custom_password_reset_email.txt:10
+msgid "Request date:"
+msgstr ""
+
+#: templates/registration/custom_password_reset_email.html:21
+#: templates/registration/custom_password_reset_email.txt:12
+msgid "This is an automated email. Please do not reply."
+msgstr ""
+
+#: templates/registration/custom_password_reset_email.html:22
+#: templates/registration/custom_password_reset_email.txt:14
+msgid "Best regards,"
+msgstr ""
+
+#: templates/registration/custom_password_reset_email.html:23
+#: templates/registration/custom_password_reset_email.txt:15
+msgid "Support Team"
+msgstr ""
+
+#: templates/registration/custom_password_reset_email.txt:6
+msgid "Please use the following link to set a new password:"
+msgstr ""

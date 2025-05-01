@@ -1,0 +1,16 @@
+{% load socialaccount %}
+
+<div class="social-providers">
+  {% for provider in socialaccount_providers %}
+    <a href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}"
+       class="btn btn-social btn-{{provider.id}} mb-2">
+       {% if provider.id == "google" %}
+         <i class="fab fa-google me-2"></i> ورود با Google
+       {% elif provider.id == "linkedin_oauth2" %}
+         <i class="fab fa-linkedin me-2"></i> ورود با LinkedIn
+       {% else %}
+         {{provider.name}}
+       {% endif %}
+    </a>
+  {% endfor %}
+</div>

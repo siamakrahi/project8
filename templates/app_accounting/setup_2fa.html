@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block extra_css %}
+<style>
+    .auth-container {
+        max-width: 800px;
+        margin: 2rem auto;
+        padding: 2rem;
+        background: #344e41;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .auth-header {
+        color: #dad7cd;
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+    .form-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 1rem;
+        margin-top: 2rem;
+    }
+    .detail-label {
+        color: #dad7cd;
+        display: block;
+        margin-bottom: 0.5rem;
+    }
+    .detail-value {
+        color: #fff;
+    }
+    .recovery-link {
+        color: #a3b18a;
+        text-decoration: none;
+    }
+    .recovery-link:hover {
+        text-decoration: underline;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<br><br><br><br><br>
+<div class="auth-container">
+    <h1 class="auth-header">تنظیم احراز هویت دو مرحله‌ای</h1>
+    
+    <p class="detail-value">برای تنظیم احراز هویت دو مرحله‌ای، لطفاً مراحل زیر را دنبال کنید:</p>
+    
+    <ol class="detail-value">
+        <li>برنامه Google Authenticator یا مشابه را نصب کنید.</li>
+        <li>کد QR زیر را اسکن کنید یا کد دستی را وارد کنید.</li>
+        <li>کد تأیید تولید شده توسط برنامه را وارد کنید.</li>
+    </ol>
+    
+    <div class="text-center my-4">
+        <img src="{{ qr_code_url }}" alt="QR Code" class="img-fluid" style="max-width: 100%; height: auto;">
+        <p class="detail-value">کد دستی: <code class="bg-light p-2">{{ secret_key }}</code></p>
+    </div>
+    
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label class="detail-label" for="id_otp_token">کد تأیید:</label>
+            {{ form.otp_token }}
+            {% if form.otp_token.errors %}
+                <div class="text-danger small mt-1">{{ form.otp_token.errors }}</div>
+            {% endif %}
+        </div>
+        
+        <div class="form-actions">
+            <button type="submit" class="btn btn-two">فعال‌سازی</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block extra_css %}
+<style>
+    .auth-container {
+        max-width: 800px;
+        margin: 2rem auto;
+        padding: 2rem;
+        background: #344e41;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .auth-header {
+        color: #dad7cd;
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+    .form-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 1rem;
+        margin-top: 2rem;
+    }
+    .detail-label {
+        color: #dad7cd;
+        display: block;
+        margin-bottom: 0.5rem;
+    }
+    .detail-value {
+        color: #fff;
+    }
+    .recovery-link {
+        color: #a3b18a;
+        text-decoration: none;
+    }
+    .recovery-link:hover {
+        text-decoration: underline;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<br><br><br><br><br>
+<div class="auth-container">
+    <h1 class="auth-header">تأیید دو مرحله‌ای</h1>
+    
+    <p class="detail-value">لطفاً کد 6 رقمی را از برنامه Authenticator خود وارد کنید:</p>
+    
+    <form method="post">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label class="detail-label" for="id_otp_token">کد تأیید:</label>
+            {{ form.otp_token }}
+            {% if form.otp_token.errors %}
+                <div class="text-danger small mt-1">{{ form.otp_token.errors }}</div>
+            {% endif %}
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-two">تأیید</button>
+            <a href="{% url 'signin' %}" class="btn btn-two" style="background-color: #bc6c25;">بازگشت به ورود</a>
+        </div>
+    </form>
+    
+    <div class="mt-4 text-center">
+        <p class="detail-value">دسترسی به برنامه Authenticator ندارید؟</p>
+        <a href="{% url 'recovery_options' %}" class="recovery-link">استفاده از روش‌های بازیابی</a>
+    </div>
+</div>
+{% endblock %}

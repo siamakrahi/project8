@@ -1,12 +1,19 @@
 {% load static %}
 <!DOCTYPE html>
-<html class="no-js" lang="fa" dir="rtl">
+{% comment %} <html class="no-js" lang="fa" dir="rtl"> {% endcomment %}
+<html class="no-js" lang="{{ request.LANGUAGE_CODE }}" dir="{% if request.LANGUAGE_CODE == 'fa' %}rtl{% else %}ltr{% endif %}">
+
+<!-- اضافه کردن بارگذاری تگ i18n -->
+{% load i18n %}
+
 <head>
     <!-- CSS های مشترک -->
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>{% block title %}سایت من{% endblock %}</title>
-    <meta name="description" content="{% block description %}توضیحات پیش‌فرض سایت{% endblock %}">   
+    <title>{% block title %}{% trans "My Website" %}{% endblock %}</title>
+    <meta name="description" content="{% block description %}{% trans "Default website description" %}{% endblock %}">
+    {% comment %} <title>{% block title %}سایت من{% endblock %}</title> {% endcomment %}
+    {% comment %} <meta name="description" content="{% block description %}توضیحات پیش‌فرض سایت{% endblock %}">    {% endcomment %}
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Favicon -->
@@ -21,6 +28,7 @@
     <link rel="stylesheet" href="{% static 'assets/css/aos.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/default.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/mode.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/custom.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/font-css/iransans.css' %}">
 
@@ -63,6 +71,7 @@
     <script src="{% static 'assets/js/ajax-form.js'%}"></script>
     <script src="{% static 'assets/js/wow.min.js'%}"></script>
     <script src="{% static 'assets/js/aos.js'%}"></script>
+    <script src="{% static 'assets/js/mode.js' %}"></script>
     <script src="{% static 'assets/js/main.js'%}"></script>
    
     <!-- اسکریپت‌های اختصاصی -->

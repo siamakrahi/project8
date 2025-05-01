@@ -4,6 +4,11 @@ from django.core.mail import EmailMessage
 from django.core.exceptions import ValidationError
 from django.template.loader import render_to_string
 from app_accounting.models import User, MessagingModel, ConsultingModel
+from django_otp.forms import OTPTokenForm
+from django import forms
+from .models import User
+import phonenumbers
+from django.core.exceptions import ValidationError
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -134,3 +139,75 @@ class ProfileForm(forms.ModelForm):
             "last_name": forms.TextInput(attrs={"class": "form-control"}),
             "email": forms.EmailInput(attrs={"class": "form-control"}),
         }
+
+
+class TwoFactorMethodForm(forms.Form):
+    TWO_FACTOR_CHOICES = [
+        ('sms', 'ارسال کد تأیید via SMS'),
+        ('totp', 'برنامه احراز هویت (مانند Google Authenticator)'),
+    ]
+    
+    method = forms.ChoiceField(
+        choices=TWO_FACTOR_CHOICES,
+        widget=forms.RadioSelect(attrs={
+            'class': 'form-check-input'
+        }),
+        label="روش احراز هویت دو مرحله‌ای",
+        help_text="لطفاً روش مورد نظر خود برای دریافت کد تأیید را انتخاب کنید"
+    )
+    
+    phone_number = forms.CharField(
+        required=False,
+        label="شماره تلفن همراه",
+        help_text="شماره تلفن همراه معتبر با پیش‌شماره ایران (مثال: 09123456789)",
+        widget=forms.TextInput(attrs={
+            'placeholder': '09123456789',
+            'class': 'form-control',
+            'data-required-if': 'sms'
+        }),
+        validators=[]
+    )
+
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user', None)
+        super().__init__(*args, **kwargs)
+        
+        # اگر کاربر شماره تلفن دارد، به عنوان مقدار اولیه قرار دهید
+        if self.user and self.user.phone_number:
+            self.fields['phone_number'].initial = self.user.phone_number
+
+    def clean_phone_number(self):
+        """اعتبارسنجی شماره تلفن"""
+        phone = self.cleaned_data.get('phone_number')
+        method = self.cleaned_data.get('method')
+        
+        if method == 'sms':
+            if not phone:
+                raise ValidationError("برای روش SMS، شماره تلفن الزامی است.")
+            
+            try:
+                parsed = phonenumbers.parse(phone, 'IR')
+                if not phonenumbers.is_valid_number(parsed):
+                    raise ValidationError("شماره تلفن وارد شده معتبر نیست.")
+                
+                return phonenumbers.format_number(
+                    parsed, 
+                    phonenumbers.PhoneNumberFormat.E164
+                )
+            except phonenumbers.phonenumberutil.NumberParseException:
+                raise ValidationError("فرمت شماره تلفن صحیح نیست. مثال صحیح: 09123456789")
+        
+        return phone
+
+    def clean(self):
+        cleaned_data = super().clean()
+        method = cleaned_data.get('method')
+        
+        # اگر کاربر انتخاب کرده است، اطلاعات را ذخیره کنید
+        if self.user and method:
+            self.user.two_factor_method = method
+            if method == 'sms':
+                self.user.phone_number = cleaned_data.get('phone_number')
+            self.user.save()
+        
+        return cleaned_data
