@@ -1,3 +1,7 @@
+"""
+WebSocket routing configuration for chatbot.
+"""
+
 from django.urls import re_path
 from . import consumers
 

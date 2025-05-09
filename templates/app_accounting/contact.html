@@ -7,6 +7,8 @@
 
 {% block extra_css %}
 <!-- CSS های اختصاصی -->
+<link rel="stylesheet" href="{% static 'assets/css/pages/contact.css' %}">
+
 {% endblock %}
 
 {% block content %}
@@ -71,7 +73,7 @@
                         <form id="messaging-form" method="POST" action="{% url 'create_messaging' %}">
                             {% csrf_token %} 
                             <div class="form-group">
-                                <textarea id="your_comment" name="your_comment" class="form-control" placeholder="پیام خود را اینجا بنویسید" rows="5"></textarea>
+                                <textarea id="your_comment" name="message" class="form-control" placeholder="پیام خود را اینجا بنویسید" rows="5"></textarea>
                             </div>
                             <br>
                             <div class="row">

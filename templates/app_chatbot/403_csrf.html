@@ -1,7 +1,14 @@
 {% extends "base.html" %}
 {% load static widget_tweaks %}
 
-{% block title %} خطای csrf {% endblock %}
+{% block title %} csrf error {% endblock %}
+
+{% block description %} csfr error page {% endblock %}
+
+{% block extra_css %}
+<!-- CSS های اختصاصی -->
+<link rel="stylesheet" href="{% static 'assets/css/pages/403_csrf.css' %}">
+{% endblock %}
 
 {% block content %}
 <div class="text-center mt-5">
@@ -14,3 +21,8 @@
     </p>
 </div>
 {% endblock %}
+
+{% block extra_js %}
+<!-- JS های خاص صفحه  -->
+{% endblock %}
+

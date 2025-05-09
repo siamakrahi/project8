@@ -1,0 +1,125 @@
+/* 
+======================
+COLOR VARIABLES
+====================== */
+:root {
+    /* رنگ‌های اصلی هماهنگ با هدر */
+    --signin-primary: var(--header-primary);
+    --signin-secondary: var(--header-secondary);
+    --signin-surface: var(--header-surface);
+    --signin-on-surface: var(--header-on-surface);
+    --signin-text-color: var(--text-color);
+    --signin-border: rgba(var(--header-primary-rgb), 0.2);
+    
+    /* سایه‌ها */
+    --signin-elevation-1: var(--header-elevation-1);
+    
+    /* فاصله‌ها */
+    --signin-space-sm: var(--header-space-sm);
+    --signin-space-md: var(--header-space-md);
+}
+
+/* 
+======================
+BASE STYLES
+====================== */
+.register__area-one {
+    background: var(--signin-surface);
+    min-height: 100vh;
+    padding: var(--signin-space-md) 0;
+}
+
+.box-form-login {
+    max-width: 500px;
+    margin: 0 auto;
+    background: var(--signin-surface);
+    border-radius: 12px;
+    box-shadow: var(--signin-elevation-1);
+    padding: var(--signin-space-lg);
+    border: 1px solid var(--signin-border);
+}
+
+.head-login h3 {
+    color: #A3B18A;
+    margin-bottom: var(--signin-space-sm);
+}
+
+.head-login p {
+    color: #A3B18A;;
+    margin-bottom: var(--signin-space-md);
+}
+
+/* 
+======================
+FORM ELEMENTS
+====================== */
+.form-control {
+    border: 1px solid var(--signin-border);
+    color: var(--signin-on-surface);
+    padding: 12px 15px;
+    border-radius: 8px;
+}
+
+.form-control:focus {
+    border-color: var(--signin-primary);
+    box-shadow: 0 0 0 3px rgba(var(--signin-primary-rgb), 0.1);
+}
+
+.btn-login {
+    background: var(--signin-primary);
+    color: var(--signin-text-color);
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.btn-login:hover {
+    background: var(--signin-secondary);
+}
+
+.box-forgot-pass a {
+    color:#A3B18A;
+    text-decoration: none;
+}
+
+.link-bold {
+    color: white;
+    font-weight: 600;
+}
+
+/* 
+======================
+DARK MODE
+====================== */
+body.dark-mode .box-form-login {
+    background: var(--tg-color-dark1);
+    border-color: rgba(var(--signin-secondary-rgb), 0.2);
+}
+
+body.dark-mode .form-control {
+    background: rgba(var(--signin-secondary-rgb), 0.1);
+    border-color: rgba(var(--signin-secondary-rgb), 0.3);
+    color: var(--tg-color-light1);
+}
+
+body.dark-mode .head-login p,
+body.dark-mode .box-forgot-pass a {
+    color: var(--tg-color-light1);
+}
+
+
+/* 
+======================
+RESPONSIVE
+====================== */
+@media (max-width: 768px) {
+    .box-form-login {
+        margin: 0 var(--signin-space-sm);
+        padding: var(--signin-space-md);
+    }
+    
+    .register__area-one {
+        padding-top: var(--header-space-lg);
+    }
+}

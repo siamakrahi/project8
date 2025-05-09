@@ -1,7 +1,10 @@
 """
-Models for the app_accounting application.
+Database models for the accounting application.
 
-Defines custom user and models for messaging and consulting interactions.
+Contains models for:
+- Custom User authentication
+- Messaging and consulting services
+- Service offerings
 """
 
 from django.db import models
@@ -10,12 +13,9 @@ from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
 from django.utils import timezone
 from django_otp.plugins.otp_totp.models import TOTPDevice
-from parler.models import TranslatableModel, TranslatedFields
+
 
 class User(AbstractUser):
-    """
-    Custom user model extending Django's AbstractUser.
-    """
     first_name = models.CharField(max_length=30, blank=True)
     last_name = models.CharField(max_length=30, blank=True)
     avatar = models.ImageField(upload_to="avatars/", blank=True, null=True)
@@ -34,11 +34,7 @@ class User(AbstractUser):
     social_avatar = models.URLField(blank=True, null=True)
     social_profile_url = models.URLField(blank=True, null=True)
 
-
     def __str__(self):
-        """
-        Returns the full name of the user.
-        """
         return self.get_full_name()
        
     def get_2fa_devices(self):
@@ -57,34 +53,23 @@ class User(AbstractUser):
             return self.social_avatar
         return '/static/images/default-avatar.png'
 
+
 class MessagingModel(models.Model):
-    """
-    Model representing user messages.
-    """
     name = models.CharField(max_length=100)
     email = models.EmailField()
     phone_number = models.CharField(max_length=20)
-    your_comment = models.TextField(blank=True, null=True)
+    message = models.TextField(_("message"), blank=True, null=True)
 
     def __str__(self):
-        """
-        Returns a readable string representation of the message.
-        """
-        return f"{self.name} ({self.email}) - {self.phone_number}: {self.your_comment}"
+        return f"{self.name} ({self.email}) - {self.phone_number}: {self.message}"
 
 
 class ConsultingModel(models.Model):
-    """
-    Model representing user consulting requests.
-    """
     name = models.CharField(max_length=100)
     email = models.EmailField()
     phone_number = models.CharField(max_length=20)
 
     def __str__(self):
-        """
-        Returns a readable string representation of the consulting request.
-        """
         return f"{self.name} ({self.email}) - {self.phone_number}"
 
 
@@ -114,27 +99,3 @@ class Service(models.Model):
         if self.detail_page_url:
             return self.detail_page_url
         return reverse('error_404')
-
-class ServiceTrans(TranslatableModel):
-    translations = TranslatedFields(
-        title=models.CharField(max_length=200, verbose_name="عنوان"),
-        description=models.TextField(verbose_name="توضیحات کوتاه"),
-        detailed_description=models.TextField(verbose_name="توضیحات کامل", blank=True),
-    )
-    
-    # فیلدهای غیر ترجمه‌پذیر
-    image = models.ImageField(upload_to="services/", verbose_name="تصویر خدمت")
-    icon_class = models.CharField(max_length=50, verbose_name="کلاس آیکون", default="flaticon-profit")
-    is_active = models.BooleanField(default=True, verbose_name="فعال")
-    order = models.PositiveIntegerField(default=0, verbose_name="ترتیب نمایش")
-    detail_page_url = models.CharField(max_length=200, verbose_name="لینک صفحه جزئیات", blank=True, null=True)
-    created_at = models.DateTimeField(default=timezone.now, verbose_name="تاریخ ایجاد")
-    updated_at = models.DateTimeField(auto_now=True, verbose_name="تاریخ به روز رسانی")
-    
-    class Meta:
-        verbose_name = "خدمت"
-        verbose_name_plural = "خدمات"
-        ordering = ['order']
-    
-    def __str__(self):
-        return self.safe_translation_getter('title', any_language=True)  # نمایش عنوان بر اساس زبان فعال

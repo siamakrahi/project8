@@ -1,0 +1,68 @@
+/* error_404.css */
+
+/* ==================== بخش عمومی صفحه ==================== */
+.error_404-main {
+    padding-top: 60px; 
+}
+
+/* ==================== (ALL) ==================== */
+
+
+/*=============================
+    22. 404 Error
+===============================*/
+.error-area {
+    padding: 120px 0;
+  }
+  @media (max-width: 767.98px) {
+    .error-area {
+      padding: 100px 0;
+    }
+  }
+  .error-content {
+    text-align: center;
+  }
+  .error-content svg {
+    width: 648px;
+    color: var(--tg-theme-primary);
+    margin-bottom: 45px;
+  }
+  @media (max-width: 1199.98px) {
+    .error-content svg {
+      width: 600px;
+    }
+  }
+  @media (max-width: 991.98px) {
+    .error-content svg {
+      width: 500px;
+    }
+  }
+  @media (max-width: 767.98px) {
+    .error-content svg {
+      width: 100%;
+      margin-bottom: 30px;
+    }
+  }
+  .error-content .title {
+    margin-bottom: 10px;
+    font-size: 48px;
+  }
+  @media (max-width: 1199.98px) {
+    .error-content .title {
+      font-size: 42px;
+    }
+  }
+  @media (max-width: 991.98px) {
+    .error-content .title {
+      font-size: 40px;
+    }
+  }
+  @media (max-width: 767.98px) {
+    .error-content .title {
+      font-size: 36px;
+    }
+  }
+  .error-content .title p {
+    margin-bottom: 35px;
+  }
+  

@@ -1,10 +1,14 @@
+"""
+FAQ management and matching utilities.
+"""
+import os
 from django.db.models import Q
 from app_chatbot.models import FAQ
 from fuzzywuzzy import fuzz
-import os
 from django.conf import settings
 
 class FAQManager:
+    """Handles FAQ matching and search operations."""
     def __init__(self):
         self.faqs = list(FAQ.objects.select_related('category').all())
         

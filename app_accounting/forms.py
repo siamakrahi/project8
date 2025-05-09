@@ -1,3 +1,14 @@
+"""
+Forms for accounting application.
+
+Contains custom forms for:
+- User registration and authentication
+- Profile management
+- Two-factor authentication setup
+- Service-related features
+"""
+import phonenumbers
+
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, PasswordResetForm, PasswordChangeForm, AuthenticationForm
 from django.core.mail import EmailMessage
@@ -6,29 +17,48 @@ from django.template.loader import render_to_string
 from app_accounting.models import User, MessagingModel, ConsultingModel
 from django_otp.forms import OTPTokenForm
 from django import forms
-from .models import User
-import phonenumbers
 from django.core.exceptions import ValidationError
+from django.contrib.auth.forms import PasswordResetForm
+from django.utils.safestring import mark_safe
+from .models import User
 
 
 class CustomUserCreationForm(UserCreationForm):
-    """
-    Custom form for user registration.
-    """
+    username = forms.CharField(
+        label="نام کاربری",
+        widget=forms.TextInput(attrs={
+            'class': 'form-control', 
+            'placeholder': 'نام کاربری خود را وارد کنید'
+        }),
+        error_messages={
+            'required': 'لطفاً نام کاربری را وارد کنید',
+            'unique': 'این نام کاربری قبلاً ثبت شده است',
+            'invalid': 'نام کاربری فقط میتواند شامل حروف، اعداد و @/./+/-/_ باشد'
+        },
+        help_text="""
+        حداقل 4 کاراکتر، فقط حروف، اعداد و @/./+/-/_ مجاز هستند
+        """
+    )
     password1 = forms.CharField(
         label="رمز عبور",
         widget=forms.PasswordInput(attrs={
             'class': 'form-control',
             'placeholder': 'رمز عبور خود را وارد کنید'
         }),
-        help_text="""
-        <ul class="password-help-text">
-            <li>رمز عبور باید حداقل 8 کاراکتر داشته باشد</li>
-            <li>نباید شبیه اطلاعات شخصی شما باشد</li>
-            <li>نباید از پسوردهای رایج استفاده کنید</li>
-            <li>باید شامل حروف و اعداد باشد</li>
-        </ul>
-        """
+        error_messages={
+            'required': 'لطفاً رمز عبور را وارد کنید',
+            'password_too_short': 'رمز عبور باید حداقل ۸ کاراکتر داشته باشد',
+            'password_too_common': 'رمز عبور بسیار ساده است',
+            'password_entirely_numeric': 'رمز عبور نمی‌تواند فقط عدد باشد'
+        },
+        help_text=mark_safe("""
+        <div class="password-help-text">
+            <span> رمز عبور باید حداقل 8 کاراکتر داشته باشد</span>
+            <span> نباید شبیه اطلاعات شخصی شما باشد</span>
+            <span> نباید از پسوردهای رایج استفاده کنید</span>
+            <span> باید شامل حروف و اعداد باشد</span>
+        </div>
+        """)
     )
     
     password2 = forms.CharField(
@@ -37,7 +67,10 @@ class CustomUserCreationForm(UserCreationForm):
             'class': 'form-control',
             'placeholder': 'رمز عبور خود را مجدداً وارد کنید'
         }),
-        help_text="برای تأیید، رمز عبور قبلی را دوباره وارد کنید"
+        error_messages={
+            'required': 'لطفاً تکرار رمز عبور را وارد کنید',
+            'password_mismatch': 'رمزهای عبور وارد شده یکسان نیستند'
+        }
     )
 
     class Meta:
@@ -58,21 +91,37 @@ class CustomUserCreationForm(UserCreationForm):
             'username': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'نام کاربری خود را وارد کنید'}),
             'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'ایمیل خود را وارد کنید'}),
         }
+        
+        error_messages = {
+            'email': {
+                'required': 'لطفاً ایمیل را وارد کنید',
+                'invalid': 'ایمیل وارد شده معتبر نیست',
+                'unique': 'این ایمیل قبلاً ثبت شده است'
+            }
+        }
 
     def clean_email(self):
-        """
-        Validate email uniqueness.
-        """
         email = self.cleaned_data.get("email")
         if User.objects.filter(email=email).exists():
             raise ValidationError("این ایمیل قبلاً استفاده شده است.")
         return email
+    
+    def clean_username(self):
+        username = self.cleaned_data.get("username")
+        if User.objects.filter(username=username).exists():
+            raise ValidationError("این نام کاربری قبلاً استفاده شده است")
+        if len(username) < 4:
+            raise ValidationError("نام کاربری باید حداقل 4 کاراکتر باشد")
+        return username
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.error_messages = {
+            'password_mismatch': 'رمزهای عبور مطابقت ندارند',
+        }
         
 
 class MyPasswordChangeForm(PasswordChangeForm):
-    """
-    Custom password change form.
-    """
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field_name in ["old_password", "new_password1", "new_password2"]:
@@ -80,24 +129,17 @@ class MyPasswordChangeForm(PasswordChangeForm):
 
 
 class MessagingForm(forms.ModelForm):
-    """
-    Form for user messaging submissions.
-    """
     class Meta:
         model = MessagingModel
-        fields = ["name", "email", "phone_number", "your_comment"]
+        fields = ["name", "email", "phone_number", "message"] 
         labels = {
             "name": "نام",
             "email": "ایمیل",
             "phone_number": "شماره تماس",
-            "your_comment": "پیام شما",
+            "message": "پیام شما"
         }
 
-
 class ConsultingForm(forms.ModelForm):
-    """
-    Form for user consulting submissions.
-    """
     class Meta:
         model = ConsultingModel
         fields = ["name", "email", "phone_number"]
@@ -109,20 +151,28 @@ class ConsultingForm(forms.ModelForm):
 
 
 class CustomPasswordResetForm(PasswordResetForm):
-    """
-    Custom password reset form with email sending functionality.
-    """
-    def send_mail(self, subject_template_name, email_template_name, context, from_email, to_email, html_email_template_name=None):
-        subject = render_to_string(subject_template_name, context).strip()  
-        body = render_to_string(email_template_name, context) 
-        email_message = EmailMessage(subject, body, from_email, [to_email])
-        email_message.send()
+    def send_mail(self, subject_template_name, email_template_name, 
+                 context, from_email, to_email, html_email_template_name=None):
+        
+        subject = f"بازنشانی رمز عبور - {context.get('site_name')}"
+        body = render_to_string(email_template_name, context)
+        
+        email = EmailMessage(
+            subject,
+            body,
+            from_email,
+            [to_email]
+        )
+        
+        if html_email_template_name:
+            html_email = render_to_string(html_email_template_name, context)
+            email.content_subtype = "html"
+            email.body = html_email
+        
+        email.send()
   
       
 class ProfileForm(forms.ModelForm):
-    """
-    Form for updating user profile.
-    """
     class Meta:
         model = User
         fields = ["first_name", "last_name", "email", "avatar", "about"]
@@ -177,7 +227,6 @@ class TwoFactorMethodForm(forms.Form):
             self.fields['phone_number'].initial = self.user.phone_number
 
     def clean_phone_number(self):
-        """اعتبارسنجی شماره تلفن"""
         phone = self.cleaned_data.get('phone_number')
         method = self.cleaned_data.get('method')
         
@@ -202,8 +251,6 @@ class TwoFactorMethodForm(forms.Form):
     def clean(self):
         cleaned_data = super().clean()
         method = cleaned_data.get('method')
-        
-        # اگر کاربر انتخاب کرده است، اطلاعات را ذخیره کنید
         if self.user and method:
             self.user.two_factor_method = method
             if method == 'sms':

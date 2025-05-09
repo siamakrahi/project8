@@ -1,0 +1,215 @@
+/* 
+======================
+GENERAL
+====================== */
+.service-main {
+  padding-top: 60px; 
+}
+
+/* 
+======================
+BREADCRUMB
+====================== */
+.breadcrumb__area {
+    background-size: cover;
+    background-position: center;
+    padding: 100px 0;
+    position: relative;
+    z-index: 1;
+}
+
+.breadcrumb__content h2.title {
+    font-size: 36px;
+    color: var(--tg-color-default);
+    margin-bottom: 15px;
+    font-family: var(--tg-heading-font-family);
+    font-weight: var(--tg-fw-semi-bold);
+}
+
+.breadcrumb__shape img {
+    position: absolute;
+    z-index: -1;
+}
+
+/* 
+======================
+ANIMATIONS
+====================== */
+.rightToLeft {
+      animation: rightToLeft 10s linear infinite;
+}
+
+@keyframes rightToLeft {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100px); }
+}
+
+/* 
+======================
+SERVICES
+====================== */
+.services__area-five {
+    position: relative;
+    padding: 100px 0;
+    background-color: var(--tg-color-light3);
+    background-size: cover;
+    background-position: center;
+}
+
+.services__area-five h4 {
+    font-size: 24px;
+    color: var(--tg-theme-primary);
+    margin-bottom: 40px;
+    text-align: center;
+    font-family: var(--tg-heading-font-family);
+    font-weight: var(--tg-fw-medium);
+}
+
+.services-item-wrap {
+    margin-top: 30px;
+}
+
+.services-item {
+    margin-bottom: 30px;
+    transition: transform 0.3s ease;
+    background-color: var(--tg-color-default);
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--tg-border-2);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.services-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+}
+
+.services-thumb {
+    position: relative;
+    overflow: hidden;
+}
+
+.services-thumb img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.services-item:hover .services-thumb img {
+    transform: scale(1.05);
+}
+
+.services-content {
+    padding: 25px;
+    text-align: center;
+}
+
+.services-content .icon {
+    margin-bottom: 15px;
+}
+
+.services-content .icon i {
+    font-size: 40px;
+    color: var(--tg-theme-secondary);
+}
+
+.services-content .title {
+    font-size: 20px;
+    font-weight: var(--tg-fw-semi-bold);
+    margin-bottom: 15px;
+    color: var(--tg-theme-primary);
+    font-family: var(--tg-heading-font-family);
+}
+
+.services-content .title a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.services-content .title a:hover {
+    color: var(--tg-theme-secondary);
+}
+
+.services-content p {
+    color: var(--tg-body-color);
+    font-size: var(--tg-body-font-size);
+    margin-bottom: 20px;
+    font-family: var(--tg-body-font-family);
+    line-height: var(--tg-body-line-height);
+}
+
+.services-content .btn {
+    display: inline-block;
+    padding: 10px 25px;
+    background-color: var(--tg-theme-secondary);
+    color: var(--tg-theme-primary);
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: var(--tg-fw-medium);
+    transition: all 0.3s ease;
+    border: 1px solid var(--tg-theme-secondary);
+}
+
+.services-content .btn:hover {
+    background-color: transparent;
+    color: var(--tg-theme-secondary);
+    border-color: var(--tg-theme-secondary);
+}
+
+/* 
+======================
+OTHERS
+====================== */
+.shine-animate-item {
+    position: relative;
+    overflow: hidden;
+}
+
+.shine-animate {
+    position: relative;
+}
+
+.shine-animate:after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -60%;
+    width: 40%;
+    height: 200%;
+    background: rgba(255, 255, 255, 0.13);
+    background: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0.13) 0%,
+        rgba(255, 255, 255, 0.13) 77%,
+        rgba(255, 255, 255, 0.5) 92%,
+        rgba(255, 255, 255, 0.0) 100%
+    );
+    transform: rotate(30deg);
+    transition: all 0.7s ease;
+}
+
+.shine-animate-item:hover .shine-animate:after {
+    left: 120%;
+}
+
+/* 
+======================
+RESPONSIVE
+====================== */
+@media (max-width: 1199.98px) {
+  .services-thumb img {
+      height: 180px;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .services__area-five {
+      padding: 70px 0;
+  }
+  
+  .services-thumb img {
+      height: 150px;
+  }
+}

@@ -1,3 +1,15 @@
+"""
+Views for the accounting application.
+
+This module contains all view functions and classes that handle:
+- User authentication (login, logout, registration)
+- Two-factor authentication setup and verification
+- Messaging and consulting services
+- Password reset functionality
+- User profile management
+- Search functionality
+"""
+
 import os
 import json
 import requests
@@ -5,8 +17,7 @@ import qrcode
 import qrcode.image.svg
 import base64
 import random
-
-from .forms import TwoFactorMethodForm 
+import logging
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout, get_user_model, forms as auth_forms
@@ -14,59 +25,59 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.sites.shortcuts import get_current_site
 from django.contrib.messages import constants as message_constants
+from django.contrib.auth.backends import ModelBackend
+from django.contrib.auth import get_user_model
+from django.contrib.auth.views import PasswordResetConfirmView, PasswordResetCompleteView
 from django.core.mail import send_mail
+from django.core.exceptions import ObjectDoesNotExist
 from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
 from django.utils.translation import gettext as _
+from django.utils.decorators import method_decorator
+from django.utils import timezone
+from django.utils.html import strip_tags
 from django.db.models import Q
 from django.conf import settings
-from django.utils.html import strip_tags
 from django.http import Http404
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
-from .models import User, MessagingModel, ConsultingModel, Service
-from .forms import CustomUserCreationForm, MessagingForm, ConsultingForm, CustomPasswordResetForm, ProfileForm
-from django_otp.plugins.otp_totp.models import TOTPDevice
-from otp_twilio.models import TwilioSMSDevice as SMSDevice
-from django_otp.forms import OTPTokenForm
-from io import BytesIO
-from django.core.exceptions import ObjectDoesNotExist
 from django.views.decorators.cache import never_cache
-from django.utils.decorators import method_decorator
 from django.views import View
-from django.utils import timezone
 from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
+from django_otp.plugins.otp_totp.models import TOTPDevice
+from django_otp.forms import OTPTokenForm
+from django_otp import devices_for_user, login as otp_login
+from otp_twilio.models import TwilioSMSDevice as SMSDevice
+from io import BytesIO
 from django_ratelimit.decorators import ratelimit
 from twilio.rest import Client
 from twilio.base.exceptions import TwilioRestException
-import logging
-from django_otp import devices_for_user, login as otp_login
-from django.contrib.auth.backends import ModelBackend
-from app_accounting.models import ServiceTrans
+from django.urls import reverse_lazy
+from .models import User, MessagingModel, ConsultingModel, Service
+from .forms import CustomUserCreationForm, MessagingForm, ConsultingForm, CustomPasswordResetForm, ProfileForm
+from .forms import TwoFactorMethodForm
+from .forms import CustomPasswordResetForm
 
 
+# ======================
+# STATIC PAGES
+# ======================
 
-# Pages:
-# -------------------------------------------------------------------------------------------------
 def home(request):
-    """Render the home page."""
     return render(request, "app_accounting/home.html")
 
 
 def service(request):
-    """Render the service page."""
     return render(request, "app_accounting/service.html")
 
 
 def team(request):
-    """Render the team page."""
     return render(request, "app_accounting/team.html")
 
 
 def contact(request):
-    """Render the contact page."""
     return render(request, "app_accounting/contact.html")
 
 
@@ -74,16 +85,16 @@ def error_404(request):
     return render(request, "app_accounting/error_404.html", status=404)
 
 
-# User authentication:
-# -------------------------------------------------------------------------------------------------
+# ======================
+# USER AUTHENTICATION
+# ======================
+
 def signin_view(request):
-    """Handle user sign-in with 2FA support."""
     if request.method == "POST":
         form = auth_forms.AuthenticationForm(request, data=request.POST)
         if form.is_valid():
             user = form.get_user()
 
-            # بررسی احراز هویت دو مرحله‌ای
             if user.has_2fa_enabled():
                 request.session['2fa_user_id'] = user.id
                 request.session['2fa_verified'] = False
@@ -99,22 +110,6 @@ def signin_view(request):
 
     return render(request, 'app_accounting/signin.html', {'form': form})
 
-# def signin_view(request):
-#     """Handle user sign-in."""
-#     if request.method == "POST":
-#         form = auth_forms.AuthenticationForm(request, data=request.POST)
-#         if form.is_valid():
-#             user = form.get_user()
-#             login(request, user)
-#             messages.success(request, "ورود موفقیت‌آمیز بود!")
-#             return redirect("home")
-#         else:
-#             messages.error(request, "نام کاربری یا رمز عبور نادرست است.")
-#     else:
-#         form = auth_forms.AuthenticationForm()
-
-#     return render(request, 'app_accounting/signin.html', {'form': form})
-
 
 def signup_view(request):
     if request.method == "POST":
@@ -124,7 +119,6 @@ def signup_view(request):
             user.is_active = True
             user.save()
             
-            # مشخص کردن backend قبل از login
             user.backend = 'django.contrib.auth.backends.ModelBackend'
             login(request, user)
             
@@ -135,13 +129,14 @@ def signup_view(request):
     return render(request, "app_accounting/signup.html", {"form": form})
 
 def signout_view(request):
-    """Handle user logout."""
     logout(request)
     return redirect("home")
 
 
-# 2FA :
-# -------------------------------------------------------------------------------------------------
+# ======================
+# TWO-FACTOR AUTHENTICATION
+# ======================
+
 @login_required
 def setup_2fa(request):
     if request.method == 'POST':
@@ -153,7 +148,6 @@ def setup_2fa(request):
                 request.user.phone_number = form.cleaned_data['phone_number']
                 request.user.save()
 
-                # ایجاد دستگاه SMS
                 device = SMSDevice.objects.create(
                     user=request.user,
                     name='SMS',
@@ -161,7 +155,6 @@ def setup_2fa(request):
                     key=str(random.randint(100000, 999999))
                 )
                 device.generate_challenge()
-                #return render(request, 'app_accounting/setup_2fa.html')
                 return redirect('setup_2fa')
 
             elif form.cleaned_data['method'] == 'totp':
@@ -175,18 +168,14 @@ def setup_2fa(request):
 
 @login_required
 def setup_totp(request):
-    # حذف دستگاه‌های TOTP قبلی
     TOTPDevice.objects.filter(user=request.user).delete()
 
-    # ایجاد دستگاه جدید
     device = TOTPDevice(user=request.user, confirmed=False)
     device.save()
 
-    # تولید QR Code
     qr_code_url = device.config_url
     secret_key = qr_code_url.split('secret=')[1].split('&')[0]
 
-    # ساخت تصویر QR
     img = qrcode.make(qr_code_url, image_factory=qrcode.image.svg.SvgImage)
     buffer = BytesIO()
     img.save(buffer)
@@ -218,9 +207,6 @@ def setup_totp(request):
 
 @login_required
 def verify_sms(request):
-    """
-    تأیید کد ارسال شده via SMS
-    """
     try:
         device = SMSDevice.objects.get(user=request.user)
     except SMSDevice.DoesNotExist:
@@ -251,15 +237,10 @@ def verify_sms(request):
 
 @login_required
 def disable_2fa(request):
-    """
-    غیرفعال کردن احراز هویت دو مرحله‌ای
-    """
     if request.method == 'POST':
-        # حذف همه دستگاه‌های احراز هویت
         TOTPDevice.objects.filter(user=request.user).delete()
         SMSDevice.objects.filter(user=request.user).delete()
 
-        # به‌روزرسانی روش احراز هویت کاربر
         request.user.two_factor_method = 'none'
         request.user.save()
 
@@ -276,19 +257,13 @@ logger = logging.getLogger(__name__)
 @csrf_exempt
 @ratelimit(key='user', rate='3/h', method='POST', block=True)
 def resend_sms_code(request):
-    """
-    ارسال مجدد کد تأیید SMS با محدودیت نرخ و مدیریت خطاهای مناسب
-    """
     try:
-        # دریافت دستگاه SMS کاربر
         device = SMSDevice.objects.get(user=request.user)
         
-        # تولید کد جدید
         new_code = str(random.randint(100000, 999999))
         device.key = new_code
         device.save()
         
-        # ارسال واقعی SMS (در محیط تولید)
         if not settings.DEBUG:
             try:
                 client = Client(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)
@@ -305,7 +280,6 @@ def resend_sms_code(request):
                     'message': 'خطا در ارسال پیامک. لطفاً با پشتیبانی تماس بگیرید.'
                 }, status=500)
         else:
-            # در محیط توسعه فقط لاگ می‌کنیم
             logger.debug(f"DEV MODE: SMS code for {request.user.phone_number}: {new_code}")
         
         return JsonResponse({
@@ -364,11 +338,12 @@ def verify_2fa(request):
     })
 
 
-# Messaging and consulting:
-# -------------------------------------------------------------------------------------------------
+# ======================
+# MESSAGING & CONSULTING
+# ======================
+
 @login_required
 def create_messaging(request):
-    """Handle user messaging submissions."""
     if request.method == "POST":
         form = MessagingForm(request.POST)
         if form.is_valid():
@@ -390,7 +365,6 @@ def create_messaging(request):
 
 @login_required
 def create_consulting(request):
-    """Handle user consulting requests."""
     if request.method == "POST":
         form = ConsultingForm(request.POST)
         if form.is_valid():
@@ -410,38 +384,37 @@ def create_consulting(request):
     return redirect("contact")
 
 
-# Password reset:
-# -------------------------------------------------------------------------------------------------
+# ======================
+# PASSWORD RESET
+# ======================
+
 def password_reset_view(request):
-    """Handle password reset request."""
     if request.method == "POST":
         form = CustomPasswordResetForm(request.POST)
         if form.is_valid():
             email = form.cleaned_data["email"]
-            users = User.objects.filter(email=email)
+            users = User.objects.filter(email__iexact=email)
+            
             if users.exists():
                 for user in users:
                     send_password_reset_email(request, user)
-                return render(
-                    request, "registration/custom_password_reset_done.html")
-            return render(request, "password_reset.html", {
-                "form": form,
-                "js_alert": "ایمیل واردشده در سیستم وجود ندارد",
+                return render(request, "registration/custom_password_reset_done.html")
+            
+            form.add_error('email', 'ایمیل وارد شده در سیستم وجود ندارد')
+            return render(request, "registration/password_reset.html", {
+                "form": form
             })
-    return render(request, "password_reset.html", {
-                  "form": CustomPasswordResetForm()})
-
+    
+    return render(request, "registration/password_reset.html", {
+        "form": CustomPasswordResetForm()
+    })
 
 def send_password_reset_email(request, user):
-    """Send password reset email to the user."""
     current_site = get_current_site(request)
-    # subject = "بازنشانی رمز عبور - {}".format(current_site.name)
     subject = f"بازنشانی رمز عبور - {current_site.name}"
-
+    
     token = default_token_generator.make_token(user)
     uid = urlsafe_base64_encode(force_bytes(user.pk))
-    # reset_path = "/reset/{}/{}/".format(uid, token)
-    # reset_url = request.build_absolute_uri(reset_path)
     reset_url = request.build_absolute_uri(f"/reset/{uid}/{token}/")
 
     context = {
@@ -452,38 +425,48 @@ def send_password_reset_email(request, user):
         "token": token,
     }
 
-    text_message = render_to_string(
-        "registration/custom_password_reset_email.txt",
-        context,
-        request=request)
     html_message = render_to_string(
         "registration/custom_password_reset_email.html",
         context,
-        request=request)
+        request=request
+    )
+    
+    text_message = render_to_string(
+        "registration/custom_password_reset_email.txt",
+        context,
+        request=request
+    )
 
     send_mail(
-        subject,
-        text_message,
-        # 'noreply@{}'.format(current_site.domain.split(':')[0]),
-        f"noreply@{current_site.domain.split(':')[0]}",
-        [user.email],
+        subject=subject,
+        message=text_message,
+        from_email=f"noreply@{current_site.domain}",
+        recipient_list=[user.email],
         html_message=html_message,
-        fail_silently=False,
+        fail_silently=False
     )
 
 
-# Profile management:
-# -------------------------------------------------------------------------------------------------
+class CustomPasswordResetConfirmView(PasswordResetConfirmView):
+    template_name = 'registration/custom_password_reset_confirm.html'
+    success_url = reverse_lazy('password_reset_complete')
+
+
+class CustomPasswordResetCompleteView(PasswordResetCompleteView):
+    template_name = 'registration/custom_password_reset_complete.html'
+
+
+# ======================
+# PROFILE MANAGEMENT
+# ======================
+
 @login_required
 def profile_view(request):
-    """Render the user profile page."""
     return render(request, "app_accounting/profile.html",
                   {"user": request.user})
 
-
 @login_required
 def edit_profile(request):
-    """Handle user profile editing."""
     if request.method == "POST":
         form = ProfileForm(request.POST, request.FILES, instance=request.user)
         if form.is_valid():
@@ -497,10 +480,12 @@ def edit_profile(request):
     return render(request, "app_accounting/edit_profile.html", {"form": form})
 
 
-# Search functionality:
-# -------------------------------------------------------------------------------------------------
+# ======================
+# SEARCH FUNCTIONALITY
+# ======================
+
 def _get_snippet(text, query, max_length=150):
-    index = text.find(query)
+    index = text.lower().find(query.lower())
     if index == -1:
         return ""
 
@@ -515,9 +500,8 @@ def _get_snippet(text, query, max_length=150):
 
     return snippet
 
-
 def search_pages(request):
-    query = request.GET.get('q', '').strip().lower()
+    query = request.GET.get('q', '').strip()
     results = []
 
     if query:
@@ -532,8 +516,7 @@ def search_pages(request):
             'signup.html'
         ]
 
-        templates_dir = os.path.join(
-            settings.BASE_DIR, 'templates', 'app_accounting')
+        templates_dir = os.path.join(settings.BASE_DIR, 'templates', 'app_accounting')
 
         for page in searchable_pages:
             file_path = os.path.join(templates_dir, page)
@@ -541,9 +524,9 @@ def search_pages(request):
             try:
                 with open(file_path, 'r', encoding='utf-8') as f:
                     content = f.read()
-                    text_content = strip_tags(content).lower()
+                    text_content = strip_tags(content)
 
-                    if query in text_content:
+                    if query.lower() in text_content.lower():
                         results.append({
                             'title': os.path.splitext(page)[0].replace('_', ' ').title(),
                             'url': page.replace('.html', ''),
@@ -557,19 +540,14 @@ def search_pages(request):
         'query': query
     })
 
-# Servie Admin:
-# -------------------------------------------------------------------------------------------------
-def service(request):
-    services = Service.objects.filter(is_active=True).order_by('order')
-    context = {
-        'services': services
-    }
-    return render(request, "app_accounting/service.html", context)
 
+# ======================
+# SERVICE ADMIN
+# ======================
 
-# Servie Translate:
-# -------------------------------------------------------------------------------------------------
-def service_list(request):
-    services = ServiceTrans.objects.active_translations().filter(is_active=True)
-    return render(request, 'services/list.html', {'services': services})
-
+# def service(request):
+#     services = Service.objects.filter(is_active=True).order_by('order')
+#     context = {
+#         'services': services
+#     }
+#     return render(request, "app_accounting/service.html", context)

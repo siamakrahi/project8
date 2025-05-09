@@ -1,0 +1,75 @@
+/* profile.css */
+
+/* ==================== بخش عمومی صفحه ==================== */
+.profile-main {
+    padding-top: 60px; 
+}
+
+/* ==================== (ALL) ==================== */
+.profile-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #344e41;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+.profile-avatar {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+.profile-avatar img {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #eee;
+}
+.user-info {
+    background: #A3B18A;
+    padding: 1.5rem;
+    border-radius: 8px;
+
+}
+.detail-item {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.detail-label {
+    font-weight: 600;
+    color: black;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+.detail-value {
+    color: black;
+}
+.security-badge {
+    display: inline-block;
+    padding: 0.35rem 0.8rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+}
+.security-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+}
+.section-title {
+    color: #dad7cd;
+    margin: 2rem 0 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+
+@media (max-width: 768px) {
+    .profile-avatar img {
+        width: 150px;
+        height: 150px;
+    }
+}

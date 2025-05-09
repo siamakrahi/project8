@@ -1,41 +1,13 @@
 {% extends "base.html" %}
 {% load static widget_tweaks %}
 
-{% block title %}ویرایش پروفایل - {{ user.get_full_name }}{% endblock %}
+{% block title %} ویرایش پروفایل کاربری{% endblock %}
+
+{% block description %}صفحه ویرایش پروفایل کاربی - {{ user.get_full_name }}{% endblock %}
 
 {% block extra_css %}
-<style>
-    .edit-profile-container {
-        max-width: 800px;
-        margin: 2rem auto;
-        padding: 2rem;
-        background: #344e41;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    .avatar-upload {
-        display: flex;
-        align-items: center;
-        gap: 2rem;
-        margin-bottom: 2rem;
-    }
-    .avatar-preview {
-        width: 150px;
-        height: 150px;
-        border-radius: 50%;
-        object-fit: cover;
-        border: 3px solid #eee;
-    }
-    .form-group {
-        margin-bottom: 1.5rem;
-    }
-    .form-actions {
-        display: flex;
-        justify-content: flex-end;
-        gap: 1rem;
-        margin-top: 2rem;
-    }
-</style>
+<!-- CSS های اختصاصی -->
+<link rel="stylesheet" href="{% static 'assets/css/pages/edit_profile.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -120,6 +92,7 @@
 {% endblock %}
 
 {% block extra_js %}
+<!-- JS های خاص صفحه  -->
 <script>
 document.getElementById('id_avatar').addEventListener('change', function(e) {
     const reader = new FileReader();

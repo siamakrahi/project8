@@ -1,0 +1,159 @@
+/* 
+======================
+COLOR SYSTEM
+====================== */
+.register__area-one {
+    background: var(--header-surface);
+
+}
+
+.box-form-login {
+    background: var(--header-surface);
+    border: 1px solid rgba(var(--header-primary-rgb), 0.1);
+    box-shadow: var(--header-elevation-1);
+
+}
+
+.head-login h3 {
+    color: #A3B18A;
+}
+
+.head-login p,
+.form-floating label {
+    color: #A3B18A;
+}
+
+/* ======================
+FORM CONTROLS ADJUSTMENT
+======================= */
+.form-control {
+    border: 1px solid rgba(var(--header-primary-rgb), 0.2);
+    color: var(--header-on-surface);
+    margin-bottom: 0 !important;
+    padding: 6px 10px !important;
+}
+
+.form-floating > label {
+    transform: scale(0.85) translateY(-0.9rem) !important;
+}
+
+.form-control:focus {
+    border-color: var(--header-primary);
+    box-shadow: 0 0 0 3px rgba(var(--header-primary-rgb), 0.1);
+}
+
+.btn-login {
+    background: var(--header-primary);
+    color: var(--text-color);
+}
+
+.btn-login:hover {
+    background: var(--header-secondary);
+}
+
+.link-bold {
+    color: white;
+}
+
+.alert-danger {
+    background: rgba(220, 53, 69, 0.1);
+    border: 1px solid rgba(220, 53, 69, 0.3);
+    color: #dc3545;
+}
+
+/* 
+======================
+DARK MODE
+====================== */
+body.dark-mode .box-form-login {
+    background: var(--tg-color-dark1);
+    border-color: rgba(var(--header-secondary-rgb), 0.2);
+}
+
+body.dark-mode .form-control {
+    background: rgba(var(--header-secondary-rgb), 0.1);
+    border-color: rgba(var(--header-secondary-rgb), 0.3);
+    color: var(--tg-color-light1);
+}
+
+body.dark-mode .head-login p,
+body.dark-mode .form-floating label {
+    color: var(--tg-color-light1);
+}
+
+body.dark-mode .form-floating .text-muted {
+    color: #f8f9fa !important;
+    background-color: rgba(40, 40, 40, 0.9);
+}
+
+/* 
+======================
+HELP TEXT STYLES - UPDATED
+====================== */
+.form-floating {
+    margin-bottom: 4px !important;
+}
+.form-floating .text-muted {
+    color: #ffffff !important;
+    border-radius: 4px;
+    display: block;
+    font-size: 0.8rem;
+    width: 100%;
+    position: relative;
+    z-index: 2;
+    margin-top: 1px !important;
+    margin-bottom: 1px !important;
+    padding: 2px 5px !important;
+    line-height: 1.3;
+}
+.password-help-text {
+    display: flex;
+    flex-direction: column;
+    background: rgba(var(--header-primary-rgb), 0.05);
+    border-radius: 6px;
+    margin: 2px 0 4px 0 !important;
+    padding: 4px 6px !important;
+    gap: 3px;
+}
+
+.password-help-text span {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    color: white;
+}
+
+.password-help-text span::before {
+    content: '•';
+    color: white;
+    font-weight: bold;
+}
+
+/* 
+======================
+FIX FOR BOOTSTRAP CONFLICTS
+====================== */
+.form-floating > .form-control:not(:placeholder-shown) ~ .text-muted,
+.form-floating > .form-control:focus ~ .text-muted {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 
+======================
+RESPONSIVE
+====================== */
+@media (max-width: 768px) {
+    .box-form-login {
+        margin: 0 1rem;
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .form-floating .text-muted {
+        font-size: 0.75rem;
+        padding: 5px 8px;
+    }
+}

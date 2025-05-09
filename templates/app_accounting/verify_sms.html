@@ -1,46 +1,13 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block title %} {% endblock %}
+
+{% block description %} {% endblock %}
 
 {% block extra_css %}
-<style>
-    .auth-container {
-        max-width: 800px;
-        margin: 2rem auto;
-        padding: 2rem;
-        background: #344e41;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    .auth-header {
-        color: #dad7cd;
-        margin-bottom: 2rem;
-        padding-bottom: 1rem;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    .form-group {
-        margin-bottom: 1.5rem;
-    }
-    .form-actions {
-        display: flex;
-        justify-content: flex-end;
-        gap: 1rem;
-        margin-top: 2rem;
-    }
-    .detail-label {
-        color: #dad7cd;
-        display: block;
-        margin-bottom: 0.5rem;
-    }
-    .detail-value {
-        color: #fff;
-    }
-    .resend-link {
-        color: #a3b18a;
-        cursor: pointer;
-    }
-    .resend-link:hover {
-        text-decoration: underline;
-    }
-</style>
+<!-- CSS های اختصاصی -->
+<link rel="stylesheet" href="{% static 'assets/css/pages/verify_sms.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -73,63 +40,66 @@
         <a id="resend-btn" onclick="resendSmsCode()" class="resend-link">ارسال مجدد کد</a>
     </div>
 </div>
+{% endblock %}
 
+{% block extra_js %}
+<!-- JS های خاص صفحه  -->
 <script>
-function resendSmsCode() {
-    const btn = document.getElementById('resend-btn');
-    const countdown = document.getElementById('countdown');
-    btn.style.display = 'none';
-    
-    // نمایش اسپینر
-    countdown.innerHTML = '<span class="spinner-border spinner-border-sm" role="status"></span> در حال ارسال...';
-    
-    fetch("{% url 'resend_sms_code' %}", {
-        method: 'POST',
-        headers: {
-            'X-CSRFToken': '{{ csrf_token }}',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({})
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            // شمارش معکوس برای ارسال مجدد
-            let seconds = 60;
-            countdown.innerHTML = `می‌توانید پس از ${seconds} ثانیه درخواست کد جدید دهید`;
-            
-            const timer = setInterval(() => {
-                seconds--;
+    function resendSmsCode() {
+        const btn = document.getElementById('resend-btn');
+        const countdown = document.getElementById('countdown');
+        btn.style.display = 'none';
+        
+        // نمایش اسپینر
+        countdown.innerHTML = '<span class="spinner-border spinner-border-sm" role="status"></span> در حال ارسال...';
+        
+        fetch("{% url 'resend_sms_code' %}", {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({})
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // شمارش معکوس برای ارسال مجدد
+                let seconds = 60;
                 countdown.innerHTML = `می‌توانید پس از ${seconds} ثانیه درخواست کد جدید دهید`;
                 
-                if (seconds <= 0) {
-                    clearInterval(timer);
-                    countdown.innerHTML = '';
-                    btn.style.display = 'inline';
-                }
-            }, 1000);
-            
-            // نمایش پیام موفقیت
-            const alertDiv = document.createElement('div');
-            alertDiv.className = 'alert alert-success mt-3';
-            alertDiv.innerHTML = 'کد جدید ارسال شد!';
-            document.querySelector('form').prepend(alertDiv);
-            
-            setTimeout(() => {
-                alertDiv.remove();
-            }, 5000);
-        } else {
-            alert('خطا: ' + data.message);
+                const timer = setInterval(() => {
+                    seconds--;
+                    countdown.innerHTML = `می‌توانید پس از ${seconds} ثانیه درخواست کد جدید دهید`;
+                    
+                    if (seconds <= 0) {
+                        clearInterval(timer);
+                        countdown.innerHTML = '';
+                        btn.style.display = 'inline';
+                    }
+                }, 1000);
+                
+                // نمایش پیام موفقیت
+                const alertDiv = document.createElement('div');
+                alertDiv.className = 'alert alert-success mt-3';
+                alertDiv.innerHTML = 'کد جدید ارسال شد!';
+                document.querySelector('form').prepend(alertDiv);
+                
+                setTimeout(() => {
+                    alertDiv.remove();
+                }, 5000);
+            } else {
+                alert('خطا: ' + data.message);
+                countdown.innerHTML = '';
+                btn.style.display = 'inline';
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('خطا در ارتباط با سرور');
             countdown.innerHTML = '';
             btn.style.display = 'inline';
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('خطا در ارتباط با سرور');
-        countdown.innerHTML = '';
-        btn.style.display = 'inline';
-    });
-}
+        });
+    }
 </script>
 {% endblock %}

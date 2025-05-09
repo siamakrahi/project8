@@ -1,0 +1,190 @@
+/* 
+======================
+GENERAL
+====================== */
+.contact-main {
+    padding-top: 60px; 
+}
+
+/* 
+======================
+BREADCRUMB
+====================== */
+.breadcrumb__area {
+    background-size: cover;
+    background-position: center;
+    padding: 100px 0;
+    position: relative;
+    z-index: 1;
+}
+
+.breadcrumb__content h2.title {
+    font-size: 36px;
+    color: var(--tg-color-default);
+    margin-bottom: 15px;
+    font-family: var(--tg-heading-font-family);
+    font-weight: var(--tg-fw-semi-bold);
+}
+
+.breadcrumb__shape img {
+    position: absolute;
+    z-index: -1;
+}
+
+/* 
+======================
+ANIMATIONS
+====================== */
+.rightToLeft {
+    animation: rightToLeft 10s linear infinite;
+}
+
+@keyframes rightToLeft {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100px); }
+}
+
+/* 
+======================
+CONTACT
+====================== */
+.call-back-area {
+    padding: 80px 0;
+    background-color: var(--tg-color-light3);
+}
+
+.call-back-content {
+    padding: 30px;
+    background-color: var(--tg-theme-primary);
+    border-radius: 10px;
+    color: var(--tg-color-default);
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+}
+
+.call-back-content .section-title .title {
+    font-size: 28px;
+    color: var(--tg-color-default);
+    margin-bottom: 15px;
+    font-family: var(--tg-heading-font-family);
+    font-weight: var(--tg-fw-semi-bold);
+}
+
+.call-back-content p {
+    font-size: var(--tg-body-font-size);
+    line-height: var(--tg-body-line-height);
+    margin-bottom: 20px;
+}
+
+.call-back-form {
+    padding: 30px;
+    background-color: var(--tg-color-default);
+    border-radius: 10px;
+    border: 1px solid var(--tg-border-2);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.call-back-form .form-group {
+    margin-bottom: 20px;
+}
+
+.call-back-form .form-control {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid var(--tg-border-2);
+    border-radius: 8px;
+    font-size: var(--tg-body-font-size);
+    font-family: var(--tg-body-font-family);
+    background-color: var(--tg-color-light3);
+    transition: all 0.3s ease;
+}
+
+.call-back-form .form-control:focus {
+    border-color: var(--tg-theme-secondary);
+    box-shadow: 0 0 0 3px rgba(163, 177, 138, 0.2);
+}
+
+.call-back-form .form-grp {
+    margin-bottom: 15px;
+}
+
+.call-back-form .form-grp input {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid var(--tg-border-2);
+    border-radius: 8px;
+    font-size: var(--tg-body-font-size);
+    font-family: var(--tg-body-font-family);
+    background-color: var(--tg-color-light3);
+    transition: all 0.3s ease;
+}
+
+.call-back-form .form-grp input:focus {
+    border-color: var(--tg-theme-secondary);
+    box-shadow: 0 0 0 3px rgba(163, 177, 138, 0.2);
+}
+
+.call-back-form .btn {
+    display: inline-block;
+    padding: 12px 30px;
+    background-color: var(--tg-theme-secondary);
+    color: var(--tg-theme-primary);
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: var(--tg-fw-medium);
+    transition: all 0.3s ease;
+    border: 1px solid var(--tg-theme-secondary);
+    cursor: pointer;
+    font-size: var(--tg-body-font-size);
+    font-family: var(--tg-body-font-family);
+}
+
+.call-back-form .btn:hover {
+    background-color: transparent;
+    color: var(--tg-theme-secondary);
+    border-color: var(--tg-theme-secondary);
+}
+
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    font-size: var(--tg-body-font-size);
+    font-family: var(--tg-body-font-family);
+}
+
+.alert-success {
+    background-color: rgba(52, 78, 65, 0.1);
+    border: 1px solid var(--tg-theme-primary);
+    color: var(--tg-theme-primary);
+}
+
+/* 
+======================
+RESPONSIVE
+====================== */
+@media (max-width: 991.98px) {
+  .call-back-area {
+      padding: 60px 0;
+  }
+  
+  .call-back-content,
+  .call-back-form {
+      padding: 20px;
+  }
+  
+  .call-back-content {
+      margin-bottom: 30px;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .call-back-area {
+      padding: 40px 0;
+  }
+  
+  .call-back-content .section-title .title {
+      font-size: 24px;
+  }
+}

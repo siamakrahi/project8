@@ -1,70 +1,91 @@
 """
-URL configuration for the app_accounting application.
+URL configuration for accounting application.
 
-Defines routes for user authentication, profile management, and other key functionalities.
+Contains all URL patterns for:
+- User authentication and profile management
+- Core application pages
+- Password reset functionality
+- Two-factor authentication flows
+- Search functionality
 """
 
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path
 from django.contrib.auth import views as auth_views
+
 from app_accounting import views
-from app_accounting.views import search_pages, password_reset_view, profile_view, resend_sms_code
-from app_accounting.views import verify_2fa  # اضافه کردن این خط
+from app_accounting.views import (
+    search_pages,
+    password_reset_view,
+    profile_view,
+    resend_sms_code,
+    verify_2fa
+)
+
 
 urlpatterns = [
-    # Profile management
+    # -------------------------------
+    # Profile Management
+    # -------------------------------
     path("profile/", profile_view, name="profile"),
     path("profile/edit/", views.edit_profile, name="edit_profile"),
 
-    # Core pages
+    # -------------------------------
+    # Core Application Pages
+    # -------------------------------
     path("", views.home, name="home"),
     path("home/", views.home, name="home"),
     path("service/", views.service, name="service"),
     path("team/", views.team, name="team"),
     path("contact/", views.contact, name="contact"),
     
-    # Error pages
-    path('error_404/', views.error_404, name='error_404'),
+    # -------------------------------
+    # Error Pages
+    # -------------------------------
+    path("error_404/", views.error_404, name="error_404"),
 
-    # User authentication
+    # -------------------------------
+    # User Authentication
+    # -------------------------------
     path("signin/", views.signin_view, name="signin"),
     path("signup/", views.signup_view, name="signup"),
     path("signout/", views.signout_view, name="signout"),
 
-    # Messaging and consulting
+    # -------------------------------
+    # Service Features
+    # -------------------------------
     path("create_messaging/", views.create_messaging, name="create_messaging"),
     path("create_consulting/", views.create_consulting, name="create_consulting"),
 
-    # Password reset
+    # -------------------------------
+    # Password Reset Flow
+    # -------------------------------
     path("password_reset/", password_reset_view, name="password_reset"),
     path(
-        "reset/<uidb64>/<token>/",
-        auth_views.PasswordResetConfirmView.as_view(
-            template_name="registration/custom_password_reset_confirm.html",
-            success_url="/reset/done/"
-        ),
+        "reset/<uidb64>/<token>/", 
+        views.CustomPasswordResetConfirmView.as_view(), 
         name="password_reset_confirm"
     ),
     path(
-        "reset/done/",
-        auth_views.PasswordResetCompleteView.as_view(
-            template_name="registration/custom_password_reset_complete.html"
-        ),
+        "reset/done/", 
+        views.CustomPasswordResetCompleteView.as_view(), 
         name="password_reset_complete"
     ),
 
-    # Search functionality
+    # -------------------------------
+    # Search Functionality
+    # -------------------------------
     path("search/", search_pages, name="search"),
     
-    # 2FA
-    path('verify-2fa/', views.verify_2fa, name='verify_2fa'),
-    path('setup_2fa/', views.setup_2fa, name='setup_2fa'),
-    path('disable-2fa/', views.disable_2fa, name='disable_2fa'),
-    path('setup-totp/', views.setup_totp, name='setup_totp'),
-    path('verify-sms/', views.verify_sms, name='verify_sms'),
-    path('choose_2fa_method/', views.setup_2fa, name='choose_2fa_method'),
-    
-    path('resend-sms-code/', resend_sms_code, name='resend_sms_code'),
+    # -------------------------------
+    # Two-Factor Authentication
+    # -------------------------------
+    path("verify-2fa/", verify_2fa, name="verify_2fa"),
+    path("setup_2fa/", views.setup_2fa, name="setup_2fa"),
+    path("disable-2fa/", views.disable_2fa, name="disable_2fa"),
+    path("setup-totp/", views.setup_totp, name="setup_totp"),
+    path("verify-sms/", views.verify_sms, name="verify_sms"),
+    path("resend-sms-code/", resend_sms_code, name="resend_sms_code"),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

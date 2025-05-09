@@ -1,0 +1,45 @@
+/* disable_2fa.css */
+
+/* ==================== بخش عمومی صفحه ==================== */
+.disable_2fa-main {
+    padding-top: 60px; 
+}
+
+/* ==================== (Breadcrumb) ==================== */
+.auth-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #344e41;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+.auth-header {
+    color: #dad7cd;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.form-group {
+    margin-bottom: 1.5rem;
+}
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+.detail-label {
+    color: #dad7cd;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+.detail-value {
+    color: #fff;
+}
+.alert-danger {
+    background-color: #bc6c25;
+    color: #dad7cd;
+    border-radius: 5px;
+    padding: 1rem;
+}

@@ -141,8 +141,10 @@ select:focus {
     align-items: center;
 }
 
+/* light mode btn */
 .mode-switcher-btn {
-    background: var(--bg-tertiary);
+    color: #fff;
+    background: #3A5A40;
     border: none;
     cursor: pointer;
     padding: 8px;
@@ -153,13 +155,13 @@ select:focus {
     align-items: center;
     justify-content: center;
     position: relative;
-    color: var(--text-primary);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
 }
 
 .mode-switcher-btn:hover {
-    background: var(--primary-color);
-    color: var(--tg-color-light1);
+    background: var(--tg-theme-secondary);
+    color: black;
     transform: rotate(15deg) scale(1.1);
 }
 
@@ -172,13 +174,15 @@ select:focus {
 .light-icon {
     opacity: 1;
     transform: scale(1) rotate(0deg);
+
 }
 
 .dark-icon {
     opacity: 0;
     transform: scale(0.5) rotate(90deg);
-    color: var(--tg-theme-secondary); /* استفاده از رنگ سبز روشن پروژه */
+    color: white; 
 }
+
 
 [data-theme="dark"] .light-icon {
     opacity: 0;

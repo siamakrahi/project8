@@ -1,0 +1,151 @@
+/* 
+======================
+GENERAL
+====================== */
+.home-main {
+    padding-top: 60px;
+    font-family: var(--tg-body-font-family);
+    color: var(--tg-body-color);
+    background-color: var(--tg-color-default); 
+}
+
+/* 
+======================
+BREADCRUMB
+====================== */
+.breadcrumb__area {
+    background-size: cover;
+    background-position: center;
+    padding: 100px 0;
+    position: relative;
+    z-index: 1;
+}
+
+.breadcrumb__content h2.title {
+    font-size: 36px;
+    color: var(--tg-color-default);
+    margin-bottom: 15px;
+    font-family: var(--tg-heading-font-family);
+    font-weight: var(--tg-fw-semi-bold);
+    background-color: transparent;
+
+/* 
+======================
+BANNER SECTION
+====================== */
+.banner-content .sub-title {
+    display: inline-block;
+    font-size: 18px;
+    color: var(--tg-color-default);
+    margin-bottom: 15px;
+    font-family: var(--tg-heading-font-family);
+    font-weight: var(--tg-fw-medium);
+    background-color: transparent; 
+    padding: 0;
+    border-radius: 0; 
+}
+
+.banner-content .title {
+    font-size: 48px;
+    color: var(--tg-color-default);
+    margin-bottom: 20px;
+    font-family: var(--tg-heading-font-family);
+    font-weight: var(--tg-fw-bold);
+    line-height: 1.2;
+    background-color: transparent; 
+}
+
+.banner-content p {
+    font-size: 18px;
+    color: var(--tg-color-default);
+    margin-bottom: 30px;
+    opacity: 0.9;
+    background-color: transparent;
+}
+
+/* 
+======================
+ABOUT US
+====================== */
+.about-content .section-title .sub-title {
+    display: inline-block;
+    color: var(--tg-theme-secondary);
+    font-size: 18px;
+    font-weight: var(--tg-fw-medium);
+    margin-bottom: 15px;
+    font-family: var(--tg-heading-font-family);
+    background-color: transparent; 
+}
+
+.about-content .section-title .title {
+    font-size: 36px;
+    color: var(--tg-theme-primary);
+    margin-bottom: 25px;
+    font-family: var(--tg-heading-font-family);
+    font-weight: var(--tg-fw-bold);
+    line-height: 1.3;
+    background-color: transparent; 
+}
+
+.author-wrap .content h4.title {
+    font-size: 18px;
+    color: var(--tg-theme-primary);
+    margin-bottom: 5px;
+    font-family: var(--tg-heading-font-family);
+    font-weight: var(--tg-fw-medium);
+    background-color: transparent;
+}
+
+/* 
+======================
+BUTTONS
+====================== */
+.banner-content .btn {
+    display: inline-block;
+    padding: 12px 35px;
+    background-color: var(--tg-theme-secondary);
+    color: var(--tg-theme-primary);
+    border-radius: 30px;
+    font-weight: var(--tg-fw-medium);
+    transition: all 0.3s ease;
+    border: 1px solid var(--tg-theme-secondary);
+    font-family: var(--tg-body-font-family);
+    text-decoration: none;
+}
+
+.btn-two {
+    display: inline-block;
+    padding: 12px 35px;
+    background-color: var(--tg-theme-primary);
+    color: var(--tg-color-default);
+    border-radius: 30px;
+    font-weight: var(--tg-fw-medium);
+    transition: all 0.3s ease;
+    border: 1px solid var(--tg-theme-primary);
+    font-family: var(--tg-body-font-family);
+    text-decoration: none;
+}
+
+/* 
+======================
+OTHERS
+====================== */
+.banner-social .title {
+    color: var(--tg-color-default);
+    font-size: 16px;
+    margin-bottom: 15px;
+    font-family: var(--tg-heading-font-family);
+    font-weight: var(--tg-fw-medium);
+    background-color: transparent;
+}
+
+.banner-scroll a {
+    color: var(--tg-color-default);
+    font-size: 16px;
+    font-weight: var(--tg-fw-medium);
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    background-color: transparent; 
+}

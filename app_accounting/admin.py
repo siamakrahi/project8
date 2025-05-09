@@ -1,17 +1,15 @@
 """
-Admin configuration for the app_accounting application.
+Admin configurations for accounting application models.
 
-Defines custom admin models for User, MessagingModel, and ConsultingModel.
+Contains custom admin classes for enhanced model administration.
 """
 
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import gettext_lazy as _
 from app_accounting.models import User, MessagingModel, ConsultingModel, Service
-from parler.admin import TranslatableAdmin
-from app_accounting.models import ServiceTrans
 
-    
+   
 class UserAdmin(UserAdmin):
     fieldsets = (
         (None, {"fields": ("username", "password")}),
@@ -43,7 +41,7 @@ class UserAdmin(UserAdmin):
 
 class MessagingAdmin(admin.ModelAdmin):
     title = 'messaging_users'
-    list_display = ("id", "email", "phone_number", "your_comment")
+    list_display = ("id", "email", "phone_number", "message")
     def get_queryset_for_request_user(self, request):
         current_user = request.user
         qs = super().get_queryset(request)
@@ -110,13 +108,6 @@ class ServiceAdmin(admin.ModelAdmin):
     image_preview.short_description = 'پیش‌نمایش تصویر'
 
 
-@admin.register(ServiceTrans)
-class ServiceTransAdmin(TranslatableAdmin):
-    list_display = ('title', 'is_active', 'order')
-    list_editable = ('is_active', 'order')
-
-
-# Register models in admin site
 admin.site.register(User, UserAdmin)
 admin.site.register(MessagingModel, MessagingAdmin)  
 admin.site.register(ConsultingModel, ConsultingAdmin)

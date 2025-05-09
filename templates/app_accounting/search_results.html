@@ -1,26 +1,44 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'assets/css/pages/search_results.css' %}?v={% now 'U' %}">
+{% endblock %}
 
 {% block content %}
-<div class="container mt-7 pt-5"> 
-    <div class="search-results-wrapper mt-5"> 
-        <h2 class="mb-4 mt-7">نتایج جستجو برای "{{ query }}"</h2> 
-        
+<div class="search-results">
+    <div class="search-results-header">
+        <h2>نتایج جستجو برای: "{{ query }}"</h2>
         {% if results %}
-            <ul class="list-group mt-5 mb-7">
-                {% for result in results %}
-                    <li class="list-group-item">
-                        <h5 class="mb-3">
-                            <a href="{% url result.url %}">{{ result.title }}</a>
-                        </h5>
-                        <p class="text-muted">{{ result.snippet }}</p>
-                    </li>
-                {% endfor %}
-            </ul>
-        {% else %}
-            <div class="alert alert-info mt-7 mb-7">
-                هیچ نتیجه‌ای برای "{{ query }}" یافت نشد.
-            </div>
+        <div class="search-results-count">{{ results|length }} نتیجه یافت شد</div>
         {% endif %}
+    </div>
+    {% if results %}
+        <ul class="results-list">
+            {% for result in results %}
+                <li class="result-item">
+                    <h3><a href="{% url result.url %}">{{ result.title }}</a></h3>
+                    <p class="snippet">{{ result.snippet|safe }}</p>
+                    <div class="result-meta">
+                        <span>{{ forloop.counter }}</span>
+                        <span>{{ result.url }}</span>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <div class="no-results-container">
+            <div class="no-results">
+                <div class="no-results-icon">
+                    <i class="fas fa-search-minus"></i>
+                </div>
+                <p>نتیجه‌ای برای "{{ query }}" یافت نشد</p>
+                <p>لطفاً عبارت جستجو را تغییر دهید یا از کلمات کلیدی متفاوت استفاده کنید</p>
+            </div>
+        </div>
+    {% endif %}
+    <div class="search-footer">
+        برای جستجوی پیشرفته‌تر از عملگرهای جستجو مانند " AND " یا " OR " استفاده کنید
     </div>
 </div>
 {% endblock %}

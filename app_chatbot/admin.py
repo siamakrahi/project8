@@ -1,3 +1,5 @@
+"""Admin configurations for chatbot models."""
+
 from django.contrib import admin
 from .models import FAQCategory, FAQ
 

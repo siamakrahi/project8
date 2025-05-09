@@ -1,9 +1,17 @@
+"""
+Custom middleware classes for authentication and internationalization.
+
+Contains:
+- Login attempt rate limiting
+- Language preference handling
+"""
+
+import logging
 from django.core.cache import cache
 from django.contrib import messages
 from django.utils.translation import gettext as _
 from django.shortcuts import redirect
 from django.conf import settings
-import logging
 from django.utils import translation
 from django.utils.deprecation import MiddlewareMixin
 
@@ -12,7 +20,6 @@ logger = logging.getLogger(__name__)
 class LoginAttemptMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response
-        # مقدار پیش‌فرض اگر تنظیمات وجود نداشت
         self.login_limit = getattr(settings, 'LOGIN_ATTEMPTS_LIMIT', 5)
         self.login_timeout = getattr(settings, 'LOGIN_ATTEMPTS_TIMEOUT', 300)
 
@@ -43,7 +50,6 @@ class LoginAttemptMiddleware:
         return self.get_response(request)
 
     def _get_client_ip(self, request):
-        """استخراج IP واقعی کاربر با در نظر گرفتن پراکسی‌ها"""
         x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
         if x_forwarded_for:
             ip = x_forwarded_for.split(',')[0]
@@ -56,16 +62,15 @@ class LanguageMiddleware(MiddlewareMixin):
     def process_request(self, request):
         language = (
             request.GET.get('lang') or
-            request.session.get('django_language') or  # استفاده از کلید استاندارد django
+            request.session.get('django_language') or 
             request.COOKIES.get('django_language') or
             request.META.get('HTTP_ACCEPT_LANGUAGE', '')[:2] or
             settings.LANGUAGE_CODE
         )
         
-        # اعتبارسنجی زبان
         language = language if language in [lang[0] for lang in settings.LANGUAGES] else settings.LANGUAGE_CODE
         
-        # ذخیره در سشن و کوکی
         translation.activate(language)
         request.LANGUAGE_CODE = language
-        request.session['django_language'] = language  # کلید استاندارد
+        request.session['django_language'] = language
+

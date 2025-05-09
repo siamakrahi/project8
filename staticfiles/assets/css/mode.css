@@ -1,0 +1,311 @@
+/* حالت‌های رنگ با تطابق کامل با پروژه */
+:root {
+    /* رنگ‌های لایت مود (مطابق با پروژه اصلی) */
+    --bg-primary: var(--tg-color-light3); /* #F9F9F8 */
+    --bg-secondary: var(--tg-color-light2); /* #F3F2EF */
+    --bg-tertiary: var(--tg-color-light1); /* #E8E6E0 */
+    --text-primary: var(--tg-color-dark); /* #344E41 */
+    --text-secondary: var(--tg-color-dark4); /* #3A5A4A */
+    --text-muted: var(--tg-color-dark5); /* #46685A */
+    --border-color: var(--tg-border-2); /* #DAD7CD */
+    --primary-color: var(--tg-theme-primary); /* #344E41 */
+    --primary-hover: var(--tg-color-dark1); /* #2B4035 */
+    --secondary-color: var(--tg-theme-secondary); /* #A3B18A */
+    --shadow-color: rgba(16, 21, 16, 0.1); /* بر اساس --tg-color-black-1 */
+    --card-bg: var(--tg-color-light3); /* #F9F9F8 */
+    --input-bg: var(--tg-color-light3); /* #F9F9F8 */
+    --header-bg: rgba(249, 249, 248, 0.95); /* بر اساس --tg-color-light3 */
+    --footer-bg: var(--tg-color-light2); /* #F3F2EF */
+    --overlay-color: rgba(16, 21, 16, 0.5); /* بر اساس --tg-color-black-1 */
+    --btn-primary: var(--tg-color-btn-btn-primary); /* #588157 */
+    --btn-text-primary: var(--tg-color-btn-text-primary); /* #344E41 */
+    --btn-hover: var(--tg-color-btn-btn-hover); /* #DAD7CD */
+    --btn-text-hover: var(--tg-color-btn-text-hover); /* #588157 */
+}
+
+[data-theme="dark"] {
+    /* رنگ‌های دارک مود با حفظ هارمونی رنگ‌های پروژه */
+    --bg-primary: #121212;
+    --bg-secondary: #1a1a1a;
+    --bg-tertiary: #242424;
+    --text-primary: #e8e6e0; /* نزدیک به --tg-color-light1 */
+    --text-secondary: #a3b18a; /* استفاده از --tg-theme-secondary */
+    --text-muted: #8a9782;
+    --border-color: #2d2d2d;
+    --primary-color: #588157; /* حفظ --tg-color-btn-btn-primary */
+    --primary-hover: #46685a; /* نزدیک به --tg-color-dark5 */
+    --secondary-color: #3a5a40; /* استفاده از --tg-border-4 */
+    --shadow-color: rgba(0, 0, 0, 0.3);
+    --card-bg: #1a1a1a;
+    --input-bg: #242424;
+    --header-bg: rgba(26, 26, 26, 0.95);
+    --footer-bg: #121212;
+    --overlay-color: rgba(0, 0, 0, 0.7);
+    --btn-primary: #588157; /* حفظ ثبات با لایت مود */
+    --btn-text-primary: #e8e6e0;
+    --btn-hover: #46685a;
+    --btn-text-hover: #a3b18a;
+}
+
+/* اعمال متغیرهای رنگ به عناصر با حفظ سبک پروژه */
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+/* هدر - تطابق با طرح اصلی */
+.tg-header__area {
+    background-color: var(--header-bg);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 2px 15px var(--shadow-color);
+    transition: background-color 0.4s ease;
+}
+
+/* منوها - حفظ سازگاری */
+.tgmenu__main-menu a,
+.tgmobile__menu a {
+    color: var(--text-primary);
+    transition: color 0.3s ease;
+}
+
+.tgmenu__main-menu a:hover,
+.tgmobile__menu a:hover {
+    color: var(--secondary-color);
+}
+
+/* دکمه‌ها - تطابق کامل با طرح اصلی */
+.btn-two {
+    background-color: var(--btn-primary);
+    color: var(--btn-text-primary);
+    border: 1px solid transparent;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.btn-two:hover {
+    background-color: var(--btn-hover);
+    color: var(--btn-text-hover);
+    box-shadow: 0 4px 12px var(--shadow-color);
+    transform: translateY(-2px);
+}
+
+.btn-two:active {
+    transform: translateY(0);
+}
+
+/* کارت‌ها - بهبود برای دارک مود */
+.card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-shadow: 0 2px 12px var(--shadow-color);
+    transition: all 0.4s ease;
+}
+
+.card:hover {
+    box-shadow: 0 6px 16px var(--shadow-color);
+    transform: translateY(-4px);
+}
+
+/* فرم‌ها - بهبود خوانایی در هر دو حالت */
+input,
+textarea,
+select {
+    background-color: var(--input-bg);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 10px 15px;
+    transition: all 0.3s ease;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(88, 129, 87, 0.2);
+    outline: none;
+}
+
+/* فوتر - تطابق با طرح */
+.tg-footer__area {
+    background-color: var(--footer-bg);
+    border-top: 1px solid var(--border-color);
+    transition: all 0.4s ease;
+}
+
+/* دکمه تغییر حالت - بهبود UX */
+.dark-mode-toggle {
+    margin-left: 12px;
+    display: flex;
+    align-items: center;
+}
+
+.mode-switcher-btn {
+    background: var(--bg-tertiary);
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    color: var(--text-primary);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mode-switcher-btn:hover {
+    background: var(--primary-color);
+    color: var(--tg-color-light1);
+    transform: rotate(15deg) scale(1.1);
+}
+
+.mode-switcher-btn i {
+    position: absolute;
+    font-size: 16px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.light-icon {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+}
+
+.dark-icon {
+    opacity: 0;
+    transform: scale(0.5) rotate(90deg);
+    color: var(--tg-theme-secondary); /* استفاده از رنگ سبز روشن پروژه */
+}
+
+[data-theme="dark"] .light-icon {
+    opacity: 0;
+    transform: scale(0.5) rotate(-90deg);
+}
+
+[data-theme="dark"] .dark-icon {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+}
+
+[data-theme="dark"] .mode-switcher-btn:hover {
+    background: var(--secondary-color);
+    color: var(--tg-color-black-1);
+}
+
+/* پیش‌لودر - تطابق با تم */
+#preloader {
+    background-color: var(--bg-primary);
+}
+
+#preloader .loader-icon img {
+    filter: brightness(var(--preloader-brightness, 1));
+}
+
+[data-theme="dark"] #preloader .loader-icon img {
+    --preloader-brightness: 0.8;
+}
+
+/* اسکرول به بالا - حفظ ثبات بصری */
+.scroll__top {
+    background-color: var(--primary-color);
+    color: var(--tg-color-light1);
+    box-shadow: 0 2px 10px var(--shadow-color);
+}
+
+.scroll__top:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-3px) scale(1.05);
+}
+
+/* جستجو - بهبود UX */
+.search__popup {
+    background-color: var(--bg-primary);
+    box-shadow: 0 5px 25px var(--shadow-color);
+}
+
+.search-input-field {
+    background-color: var(--input-bg);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+}
+
+.search-input-field:focus {
+    border-color: var(--primary-color);
+}
+
+/* دراپ‌داون کاربر - بهبود خوانایی */
+.dropdown-content {
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 8px 24px var(--shadow-color);
+}
+
+.dropdown-item {
+    color: var(--text-primary);
+    transition: all 0.2s ease;
+}
+
+.dropdown-item:hover {
+    background-color: var(--bg-tertiary);
+    padding-right: 20px;
+}
+
+.dropdown-item i {
+    color: var(--secondary-color);
+}
+
+/* انیمیشن‌های تغییر تم */
+.theme-transition *,
+.theme-transition *::before,
+.theme-transition *::after {
+    transition: background-color 0.4s ease, 
+                color 0.4s ease, 
+                border-color 0.4s ease,
+                box-shadow 0.4s ease,
+                opacity 0.4s ease,
+                transform 0.4s ease !important;
+}
+
+/* رسپانسیو */
+@media (max-width: 768px) {
+    .dark-mode-toggle {
+        margin-left: 8px;
+    }
+    
+    .mode-switcher-btn {
+        width: 36px;
+        height: 36px;
+    }
+}
+
+/* تغییر جهت بر اساس زبان */
+[dir="rtl"] {
+    direction: rtl;
+    text-align: right;
+}
+
+[dir="ltr"] {
+    direction: ltr;
+    text-align: left;
+}
+
+/* تطبیق منوها برای زبان انگلیسی */
+[dir="ltr"] .tgmenu__main-menu {
+    padding-left: 0;
+    padding-right: auto;
+}
+
+[dir="ltr"] .logo {
+    margin-left: auto;
+    margin-right: 0;
+    padding-right: 15px;
+    padding-left: 0;
+}
+
+/* تطبیق فوتر برای زبان انگلیسی */
+[dir="ltr"] .tg-footer__content {
+    text-align: left;
+}
