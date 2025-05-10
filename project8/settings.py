@@ -196,7 +196,8 @@ LOCALE_PATHS = [
 # ======================
 
 STATIC_URL = "/static/"
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")  # Collected static files
+STATIC_ROOT = '/var/www/project8/static/'
+# STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")  # Collected static files
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),  # Development static files
 ]
@@ -208,7 +209,8 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 # ======================
 
 MEDIA_URL = "/media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")  # User uploaded files
+MEDIA_ROOT = '/var/www/project8/media/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, "media")  # User uploaded files
 
 
 # ======================
