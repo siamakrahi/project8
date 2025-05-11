@@ -57,37 +57,50 @@ if DEBUG:
     ALLOWED_HOSTS.append(socket.gethostbyname(socket.gethostname()))
 
 
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+SECURE_REFERRER_POLICY = "same-origin"
+SECURE_CROSS_ORIGIN_OPENER_POLICY = "same-origin"
+CSRF_TRUSTED_ORIGINS = [f"https://{host}" for host in os.getenv("ALLOWED_HOSTS", "").split(",") if host]
+
+
 # ======================
 # APPLICATION DEFINITION
 # ======================
 
 INSTALLED_APPS = [
     # Django core apps
-    "django.contrib.admin",
-    "django.contrib.auth",
-    "django.contrib.contenttypes",
-    "django.contrib.sessions",
-    "django.contrib.messages",
-    "django.contrib.staticfiles",
-    "django.contrib.sites",
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.sites',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
     
-    # Third-party apps
-    "jazzmin",  # Admin interface
-    "widget_tweaks",  # Form rendering
-    "allauth",  # Authentication
-    "allauth.account",
-    "allauth.socialaccount",
-    "allauth.socialaccount.providers.google",
-    "allauth.socialaccount.providers.linkedin_oauth2",
-    "django_otp",  # Two-factor auth
-    "django_otp.plugins.otp_totp",  # TOTP (Google Authenticator)
-    "otp_twilio",  # SMS-based 2FA
-    "django_otp.plugins.otp_static",  # Backup codes
-    "whitenoise.runserver_nostatic",  # Static files
-    "parler",  # Model translations
-    "rosetta",  # Translation UI
-    "channels",  # WebSockets
-    "daphne",  # ASGI server
+    # Admin
+    'jazzmin',
+    'django.contrib.admin',
+    
+    # احراز هویت و امنیت
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'django_otp',
+    'django_otp.plugins.otp_totp',
+    'django_otp.plugins.otp_static',
+    'otp_twilio',
+    
+    # بین‌المللی‌سازی
+    'parler',
+    'rosetta',
+    
+    # ابزارهای توسعه
+    'widget_tweaks',
+    'whitenoise.runserver_nostatic',
+    
+    # Real-time
+    'channels',
+    'daphne',
     
     # Local apps
     "app_accounting",
@@ -135,11 +148,18 @@ TEMPLATES = [
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.getenv("DB_NAME", "postgres"),
-        "USER": os.getenv("DB_USER", "postgres"),
-        "PASSWORD": os.getenv("DB_PASSWORD", "postgres"),
-        "HOST": os.getenv("DB_HOST", "localhost"),
-        "PORT": os.getenv("DB_PORT", "5432"),
+        "NAME": os.getenv("DB_NAME"),
+        "USER": os.getenv("DB_USER"),
+        "PASSWORD": os.getenv("DB_PASSWORD"),
+        "HOST": os.getenv("DB_HOST"),
+        "PORT": os.getenv("DB_PORT"),
+        "OPTIONS": {
+            "connect_timeout": 3,
+            "sslmode": "require" if not DEBUG else "prefer",
+            "application_name": "project8",
+        },
+        "CONN_MAX_AGE": 300 if not DEBUG else 0,
+        "DISABLE_SERVER_SIDE_CURSORS": False,
     }
 }
 
@@ -192,25 +212,44 @@ LOCALE_PATHS = [
 
 
 # ======================
-# STATIC FILES (CSS, JavaScript, Images)
+# STATIC/MEDIA
 # ======================
 
-STATIC_URL = "/static/"
-STATIC_ROOT = '/var/www/project8/static/'
-# STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")  # Collected static files
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),  # Development static files
-]
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
+
+WHITENOISE_MANIFEST_STRICT = not DEBUG
+WHITENOISE_MAX_AGE = 31536000 if not DEBUG else 0
+WHITENOISE_USE_FINDERS = DEBUG
+WHITENOISE_INDEX_FILE = True
 
 
-# ======================
-# MEDIA FILES (Uploaded by users)
-# ======================
+# # ======================
+# # STATIC FILES (CSS, JavaScript, Images)
+# # ======================
 
-MEDIA_URL = "/media/"
-MEDIA_ROOT = '/var/www/project8/media/'
-# MEDIA_ROOT = os.path.join(BASE_DIR, "media")  # User uploaded files
+# STATIC_URL = "/static/"
+# STATIC_ROOT = '/var/www/project8/static/'
+# # STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")  # Collected static files
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, "static"),  # Development static files
+# ]
+# STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+
+# # ======================
+# # MEDIA FILES (Uploaded by users)
+# # ======================
+
+# MEDIA_URL = "/media/"
+# MEDIA_ROOT = '/var/www/project8/media/'
+# # MEDIA_ROOT = os.path.join(BASE_DIR, "media")  # User uploaded files
 
 
 # ======================
@@ -322,65 +361,79 @@ TWILIO_PHONE_NUMBER = os.getenv("TWILIO_PHONE_NUMBER")
 # ======================
 
 JAZZMIN_SETTINGS = {
-    # UI Configuration
-    "language_chooser": False,
-    "site_header": "Admin Panel",
-    "site_brand": "Site Administration",
-    "site_logo": "assets/img/logo.png",
-    "login_logo": "assets/img/login-logo.png",
-    "login_logo_dark": "assets/img/login-logo-dark.png",
-    "site_logo_classes": "img-circle",
-    "welcome_sign": "Welcome to Admin Panel",
-    "copyright": "All rights reserved",
+    # هویت بصری
+    "site_title": "پنل مدیریت",  # عنوان تب مرورگر
+    "site_header": "پنل مدیریت",  # هدر صفحه
+    "site_brand": "مدیریت سایت",  # برند نمایشی
+    "site_logo": "admin/img/logo.png",  # مسیر نسبی از STATIC_URL
+    "login_logo": None,  # استفاده از همان site_logo
+    "login_logo_dark": None,  # استفاده از تم تاریک
+    "site_logo_classes": "img-square",  # بهتر از img-circle برای لوگوهای رسمی
+    "welcome_sign": "به پنل مدیریت خوش آمدید",  # متن خوشآمدگویی
+    "copyright": "کلیه حقوق محفوظ است",  # متن کپی رایت
     
-    # Theme and styling
-    "theme": "lux",
-    "dark_mode_theme": "darkly",
-    "site_icon": "assets/img/favicon.ico",
-    "custom_css": "assets/css/admin-custom.css",
+    # تم و ظاهر
+    "theme": "flatly",  # تم پیشنهادی (ساده‌تر از lux)
+    "dark_mode_theme": "darkly",  # تم تاریک
+    "site_icon": "admin/img/favicon.ico",  # آیکون سایت
+    "custom_css": "admin/css/custom.css",  # css سفارشی
     
-    # Menu configuration
-    "order_with_respect_to": ["auth", "app_accounting", "app_chatbot"],
+    # منوها و ناوبری
     "topmenu_links": [
-        {"name": "Home", "url": "admin:index", "permissions": ["auth.view_user"]},
-        {"name": "View Site", "url": "/", "new_window": True},
-        {"model": "auth.User"},
+        {"name": "صفحه اصلی", "url": "admin:index", "permissions": ["auth.view_user"]},
+        {"name": "مشاهده سایت", "url": "/", "new_window": True},
+        {"model": "auth.user"},  # لینک مستقیم به مدل کاربر
+        {"app": "app_accounting"},  # لینک مستقیم به اپ حسابداری
     ],
     
-    # UI Behavior
-    "show_sidebar": True,
-    "navigation_expanded": True,
-    "related_modal_active": True,
-    "show_ui_builder": True,
-    "changeform_format": "horizontal_tabs",
+    # رفتار رابط کاربری
+    "show_sidebar": True,  # نمایش نوار کناری
+    "navigation_expanded": False,  # منوها به صورت پیش‌فرض جمع باشند
+    "related_modal_active": True,  # استفاده از مودال برای روابط
+    "show_ui_builder": False,  # غیرفعال در production
+    "changeform_format": "horizontal_tabs",  # فرمت فرم‌ها
     
-    # Icons
+    # آیکون‌ها
     "icons": {
         "auth": "fas fa-users-cog",
         "auth.user": "fas fa-user",
         "auth.Group": "fas fa-users",
         "app_accounting.Service": "fas fa-cogs",
-        "app_accounting.MessagingModel": "fas fa-envelope",
-        "app_accounting.ConsultingModel": "fas fa-phone-alt",
+        "app_accounting.MessagingModel": "fas fa-comments",
+        "app_accounting.ConsultingModel": "fas fa-headset",
+        "sites.Site": "fas fa-globe",
     },
     
-    # User menu
+    # منوی کاربر
     "usermenu_links": [
         {
-            "name": "Logout",
-            "url": "admin:logout",
-            "icon": "fas fa-sign-out-alt",
-            "new_window": False
+            "name": "پروفایل",
+            "url": "admin:auth_user_change",  # لینک به پروفایل کاربر
+            "icon": "fas fa-user",
         },
         {
-            "name": "View Site",
-            "url": "/",
-            "icon": "fas fa-external-link-alt",
-            "new_window": True
+            "name": "تغییر رمز",
+            "url": "admin:auth_user_password_change",
+            "icon": "fas fa-key",
+        },
+        {
+            "name": "خروج",
+            "url": "admin:logout",
+            "icon": "fas fa-sign-out-alt",
         }
     ],
+    
+    # تنظیمات پیشرفته
+    "language_chooser": True,  # فعال برای چندزبانه
+    "order_with_respect_to": [
+        "auth",
+        "auth.user",
+        "auth.group",
+        "app_accounting",
+        "app_chatbot",
+        "sites.site",
+    ],
 }
-
 
 # ======================
 # CHANNELS (WebSockets)
@@ -413,11 +466,18 @@ MESSAGE_STORAGE = "django.contrib.messages.storage.session.SessionStorage"
 # CACHE CONFIGURATION
 # ======================
 
-CACHES = {
-    "default": {
-        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+if not DEBUG:
+    CACHES = {
+        "default": {
+            "BACKEND": "django.core.cache.backends.redis.RedisCache",
+            "LOCATION": os.getenv("REDIS_URL", "redis://localhost:6379/0"),
+        }
     }
-}
+# CACHES = {
+#     "default": {
+#         "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+#     }
+# }
 
 
 # ======================
@@ -438,3 +498,77 @@ PARLER_LANGUAGES = {
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# ======================
+# PERFORMANCE OPTIMIZATION
+# ======================
+if not DEBUG:
+    # Template caching
+    TEMPLATES[0]["OPTIONS"]["loaders"] = [
+        (
+            "django.template.loaders.cached.Loader",
+            [
+                "django.template.loaders.filesystem.Loader",
+                "django.template.loaders.app_directories.Loader",
+            ],
+        )
+    ]
+    
+    # Database performance
+    DATABASES["default"]["DISABLE_SERVER_SIDE_CURSORS"] = False
+    DATABASES["default"]["CONN_MAX_AGE"] = 300
+    
+    # Session engine
+    SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
+    
+    # Security middleware
+    SECURE_BROWSER_XSS_FILTER = True
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+    X_FRAME_OPTIONS = "DENY"
+
+# ======================
+# LOGGING CONFIGURATION
+# ======================
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "verbose": {
+            "format": "{levelname} {asctime} {module} {process:d} {thread:d} {message}",
+            "style": "{",
+        },
+    },
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+            "formatter": "verbose",
+        },
+        "file": {
+            "level": "ERROR",
+            "class": "logging.handlers.RotatingFileHandler",
+            "filename": "/var/log/django/error.log",
+            "maxBytes": 1024 * 1024 * 5,  # 5MB
+            "backupCount": 5,
+            "formatter": "verbose",
+        },
+    },
+    "root": {
+        "handlers": ["console", "file"],
+        "level": "WARNING",
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["console", "file"],
+            "level": os.getenv("DJANGO_LOG_LEVEL", "INFO"),
+            "propagate": False,
+        },
+    },
+}
+
+# ======================
+# HEALTH CHECKS
+# ======================
+HEALTH_CHECK = {
+    "DISK_USAGE_MAX": 90,  # percent
+    "MEMORY_MIN": 100,    # in MB
+}
