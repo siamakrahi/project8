@@ -55,6 +55,11 @@ body.dark-mode {
   }
 }
 
+/* 
+======================
+HEADER AREA
+====================== */
+
 .tg-header__area {
     position: fixed;
     top: 0;
@@ -74,15 +79,22 @@ body.dark-mode {
 NAVIGATION SYSTEM
 ====================== */
 .tgmenu__nav {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; /* تغییر جهت به راست */
+  width: 100%;
+  padding-left: 80px; /* ایجاد فضای کافی برای لوگو */
+}
+/* .tgmenu__nav {
     display: flex;
     align-items: center;
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
     max-width: 1440px;
-}
+} */
 
-.tgmenu__wrap{
+/* .tgmenu__wrap{
     width: 100%;
 }
 
@@ -93,6 +105,27 @@ NAVIGATION SYSTEM
     margin-top: 12px;
     margin-left: auto;
     list-style: none;
+    white-space: nowrap !important; 
+    flex-wrap: nowrap !important;
+    padding-bottom: 4px; 
+} */
+
+.tgmenu__wrap {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.tgmenu__main-menu {
+  display: flex;
+  gap: var(--header-space-md);
+  justify-self: center;
+  margin-top: 12px;
+  margin-left: auto;
+  list-style: none;
+  white-space: nowrap;
+  flex-wrap: nowrap;
+  padding-bottom: 4px;
 }
 
 .tgmenu__main-menu a {
@@ -108,6 +141,14 @@ NAVIGATION SYSTEM
 .tgmenu__main-menu a:active {
     color: var(--header-primary);
     font-weight: var(--tg-fw-semi-bold);
+}
+
+.tgmenu__main-menu::-webkit-scrollbar {
+  height: 4px;
+}
+
+.tgmenu__main-menu::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.1);
 }
 
 /* 
@@ -136,9 +177,8 @@ SEARCH SYSTEM
 }
 
 .header-search {
-    position: relative;
+    /* position: relative; */
     margin-left: 0.5rem;
-    position: relative;
 }
   
 .search-container {
@@ -162,12 +202,12 @@ SEARCH SYSTEM
     transform-origin: left center;
     z-index: 100; 
     position: absolute;
-    right: auto; /* غیرفعال کردن right پیشفرض */
-    left: 50px; /* فاصله از لبه سمت راست */
+    right: auto; 
+    left: 50px; 
     top: 50%;
     transform: translateY(-50%);
-    direction: rtl; /* متن راستچین */
-    padding-right: 35px; /* فاصله متن از آیکون */
+    direction: rtl; 
+    padding-right: 35px; 
     padding-left: 15px;
 }
 
@@ -439,9 +479,12 @@ MOBILE NAVIGATION
 LOGO SECTION
 ====================== */
 .logo {
-    height: 35px;
+    /* height: 35px;
     margin-right: 1rem;
-    order: 0;
+    order: 0; */
+    order: 0 !important; /* تضمین می‌کند لوگو همیشه در سمت راست می‌ماند */
+    margin-right: auto !important; /* لوگو را به راست می‌چسباند */
+    margin-left: 0 !important;
 }
 
 /* 
@@ -630,6 +673,113 @@ DROPDOWN SECTION
 ======================
 RESPONSIVE
 ====================== */
+
+@media (max-width: 575.98px) {
+  .logo {
+    left: 10px;
+    height: 30px;
+  }
+  
+  .tgmenu__nav {
+    padding-left: 60px;
+  }
+  
+  .tgmenu__main-menu {
+    display: none;
+  }
+  
+  .auth-buttons .auth-separator,
+  .auth-btn span,
+  .profile-toggle span {
+    display: none;
+  }
+  
+  .search-input {
+    width: 120px !important;
+  }
+}
+@media (max-width: 575.98px) {
+  .tgmenu__main-menu {
+    display: none;
+  }
+
+  .logo {
+    margin-right: auto; 
+  }
+
+  .auth-buttons .auth-separator,
+  .auth-btn span,
+  .profile-toggle span {
+    display: none;
+  }
+
+  .search-input {
+    left: -120px;
+    width: 150px !important;
+  }
+
+  .header-search.active .search-input {
+    left: -160px;
+    width: 200px !important;
+  }
+}
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .logo {
+    left: 15px;
+  }
+  
+  .tgmenu__nav {
+    padding-left: 70px;
+  }
+  
+  .tgmenu__main-menu {
+    display: none;
+  }
+  
+  .auth-btn span {
+    display: inline;
+  }
+  
+  .search-input {
+    width: 150px !important;
+  }
+}
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .logo {
+    margin-right: 15px !important;
+  }
+  
+  .search-input {
+    width: 160px !important;
+  }
+}
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .tgmenu__main-menu {
+    gap: var(--header-space-sm);
+  }
+}
+@media (min-width: 1200px) {
+  .tgmenu__nav {
+    max-width: 1440px;
+    margin: 0 auto;
+  }
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .tgmenu__main-menu {
+    display: none;
+  }
+
+  .auth-btn span {
+    display: inline; 
+  }
+
+  .search-input {
+    width: 180px !important;
+  }
+}
+
+
 @media (max-width: 768px) {
   .tgmenu__main-menu {
       display: none;
@@ -687,9 +837,9 @@ RESPONSIVE
   }
 
   .search-input {
-      position: static; /* غیرفعال کردن موقعیت مطلق در موبایل */
+      position: static; 
       transform: none;
-      left: -120px; /* تنظیم موقعیت برای موبایل */
+      left: -120px; 
       width: 150px !important;      top: 50%;
       background: white;
       box-shadow: 0 2px 10px rgba(0,0,0,0.1);
@@ -715,5 +865,227 @@ RESPONSIVE
 
   .search__popup {
       display: none;
+  }
+}
+@media (max-width: 767.98px) {
+  .logo {
+    position: relative;
+    z-index: 1000; 
+    margin-right: 10px !important; 
+    flex-shrink: 0; 
+  }
+
+  .header-search.active {
+    position: absolute;
+    right: 50px; 
+    width: calc(100% - 120px); 
+  }
+
+  .search-input {
+    left: 0 !important; 
+    width: 100% !important;
+    background: white; 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+}
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .logo {
+    min-width: 120px;
+    margin-right: 20px !important;
+  }
+
+  .search-input {
+    width: 180px !important;
+    left: auto !important;
+    right: 40px; 
+  }
+}
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .tgmenu__main-menu a {
+    padding: 0.4rem 0.6rem; 
+    font-size: 0.8rem;
+  }
+
+  .auth-btn {
+    padding: 8px 10px;
+    font-size: 0.8rem;
+  }
+}
+@media (max-width: 991.98px) {
+  .tgmenu__main-menu {
+    display: none !important; 
+  }
+}
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .logo {
+    left: 20px;
+  }
+  
+  .tgmenu__main-menu a {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.8rem;
+  }
+  
+  .auth-btn {
+    padding: 8px 10px;
+    font-size: 0.8rem;
+  }
+}
+@media (min-width: 992px) {
+  .logo {
+    margin-right: var(--header-space-md) !important; 
+  }
+}
+@media (min-width: 992px) {
+  .logo {
+    margin-right: 30px !important; 
+    flex: 0 0 auto; 
+  }
+
+  .header-search {
+    margin-left: auto; 
+  }
+}
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .tgmenu__main-menu {
+    gap: var(--header-space-sm);
+  }
+  
+  .logo {
+    left: 30px;
+  }
+}
+@media (min-width: 1200px) {
+  .tgmenu__nav {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding-left: 100px;
+  }
+  
+  .logo {
+    left: 50px;
+    height: 40px;
+  }
+}
+
+
+/* تنظیمات ریسپانسیو برای سایزهای مختلف */
+
+/* تنظیمات ریسپانسیو */
+
+/* موبایل (عرض کمتر از 576px) */
+@media (max-width: 575.98px) {
+  .header-search {
+    right: 15px;
+  }
+  .header-search.active .search-input {
+    width: 150px;
+  }
+}
+
+/* تبلت کوچک (576px تا 767px) */
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .header-search.active .search-input {
+    width: 180px;
+  }
+}
+
+/* تبلت بزرگ (768px تا 991px) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .header-search.active .search-input {
+    width: 220px;
+  }
+}
+
+/* دسکتاپ (992px به بالا) */
+@media (min-width: 992px) {
+  .header-search {
+    right: 30px;
+  }
+  .header-search.active .search-input {
+    width: 250px;
+  }
+}
+
+/* مخفی کردن منو هنگام جستجو */
+@media (min-width: 768px) {
+  .header-search.active ~ .tgmenu__main-menu {
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.3s ease;
+  }
+}
+
+
+/* موبایل خیلی کوچک (320px-479px) */
+@media (max-width: 479px) {
+  .logo {
+    left: 10px;
+    height: 30px;
+    max-width: 120px;
+  }
+  
+  .header-search {
+    right: 10px;
+  }
+  
+  .header-search.active .search-input {
+    width: 130px;
+  }
+}
+
+/* موبایل (480px-575px) */
+@media (min-width: 480px) and (max-width: 575px) {
+  .logo {
+    left: 15px;
+    max-width: 140px;
+  }
+  
+  .header-search.active .search-input {
+    width: 150px;
+  }
+}
+
+/* تبلت کوچک (576px-767px) */
+@media (min-width: 576px) and (max-width: 767px) {
+  .header-search.active .search-input {
+    width: 180px;
+  }
+}
+
+/* تبلت بزرگ (768px-991px) */
+@media (min-width: 768px) and (max-width: 991px) {
+  .header-search.active .search-input {
+    width: 220px;
+  }
+}
+
+/* دسکتاپ (992px به بالا) */
+@media (min-width: 992px) {
+  .header-search.active .search-input {
+    width: 250px;
+  }
+}
+
+/*
+======================
+OVERLAP PROTECTION
+====================== */
+
+@media (max-width: 767px) {
+  .header-search.active ~ .tgmenu__action-four {
+    display: none;
+  }
+  
+  .header-search.active ~ .tgmenu__main-menu {
+    visibility: hidden;
+  }
+}
+
+@media (min-width: 768px) {
+  .header-search.active ~ .tgmenu__main-menu {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
   }
 }

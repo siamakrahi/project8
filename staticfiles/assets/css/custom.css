@@ -7,11 +7,6 @@ h3 {
     line-height: 1.7em;
 }
 
-/*
-                کلاس های جدید در نسخه فارسی   
-*/
-
-
 .ltr-p{
     direction: ltr;
 }
@@ -22,7 +17,7 @@ h3 {
 
 
 /*
-                header rtl css  
+ header rtl css  
 */
 
 .tgmenu__main-menu li.menu-item-has-children > a::after , .tgmenu__action ul , .btn::after{
@@ -65,7 +60,7 @@ h3 {
 }
 
 /*
-                demo 1  rtl css  
+demo 1  rtl css  
 */
 .testimonial-content p {
     font-style: normal;
@@ -326,6 +321,7 @@ h3 {
     left: -18px;
 }
 .btn{
+    content: none;
     justify-content: center;
 }
 .about__list-box-two {

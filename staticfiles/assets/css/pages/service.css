@@ -77,6 +77,7 @@ SERVICES
     overflow: hidden;
     border: 1px solid var(--tg-border-2);
     box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+
 }
 
 .services-item:hover {
@@ -101,6 +102,7 @@ SERVICES
 }
 
 .services-content {
+    content: none;
     padding: 25px;
     text-align: center;
 }
@@ -133,6 +135,7 @@ SERVICES
 }
 
 .services-content p {
+    content: none;
     color: var(--tg-body-color);
     font-size: var(--tg-body-font-size);
     margin-bottom: 20px;
@@ -140,23 +143,26 @@ SERVICES
     line-height: var(--tg-body-line-height);
 }
 
+
+/* مطالعه بیشتر */
+
 .services-content .btn {
-    display: inline-block;
     padding: 10px 25px;
-    background-color: var(--tg-theme-secondary);
-    color: var(--tg-theme-primary);
+    color: #fff;
+    background: #3A5A40;
     border-radius: 30px;
     text-decoration: none;
     font-weight: var(--tg-fw-medium);
     transition: all 0.3s ease;
     border: 1px solid var(--tg-theme-secondary);
+
+} 
+.services-content .btn:hover {
+    color: black;
+    background-color: red;
+    
 }
 
-.services-content .btn:hover {
-    background-color: transparent;
-    color: var(--tg-theme-secondary);
-    border-color: var(--tg-theme-secondary);
-}
 
 /* 
 ======================

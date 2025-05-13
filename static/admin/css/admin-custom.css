@@ -1,0 +1,365 @@
+/* admin-custom.css - پنل مدیریت حرفه‌ای با پالت رنگی پروژه */
+
+/* ================ بازنویسی کامل تم Jazzmin ================ */
+:root {
+    /* پالت اصلی پروژه */
+    --tg-primary: #344E41;          /* سبز تیره */
+    --tg-secondary: #A3B18A;        /* سبز روشن */
+    --tg-accent: #588157;           /* سبز متوسط */
+    --tg-background: #F9F9F8;       /* پس‌زمینه اصلی */
+    --tg-sidebar: #F3F2EF;          /* سایدبار */
+    --tg-text: #2B4035;             /* متن اصلی */
+    --tg-border: #DAD7CD;           /* حاشیه‌ها */
+    
+    /* سایه‌های سفارشی */
+    --shadow-sm: 0 2px 8px rgba(43, 64, 53, 0.1);
+    --shadow-md: 0 4px 12px rgba(43, 64, 53, 0.15);
+    --shadow-lg: 0 8px 24px rgba(43, 64, 53, 0.2);
+}
+
+/* ================ بازنویسی کامل استایل‌های پیشفرض ================ */
+body {
+    background: var(--tg-background) !important;
+    color: var(--tg-text) !important;
+    font-family: var(--tg-body-font-family) !important;
+    font-size: var(--tg-body-font-size) !important;
+    line-height: var(--tg-body-line-height) !important;
+}
+
+/* هدر اصلی */
+.main-header {
+    background: var(--tg-primary) !important;
+    border-bottom: 2px solid var(--tg-accent) !important;
+    box-shadow: var(--shadow-md) !important;
+}
+
+.navbar-brand {
+    color: var(--tg-secondary) !important;
+    font-family: var(--tg-heading-font-family) !important;
+    font-weight: var(--tg-fw-bold) !important;
+    font-size: 1.5rem !important;
+}
+
+/* منوی کناری */
+.sidebar {
+    background: var(--tg-primary) !important; /* رنگ اصلی پروژه */
+    color: var(--tg-secondary) !important; /* رنگ متن */
+    border-left: 2px solid var(--tg-border) !important;
+    transition: all 0.3s ease !important;
+
+}
+
+body .sidebar .nav-link {
+    color: red;
+}
+
+.sidebar .nav-link {
+    color: var(--tg-secondary) !important;
+    font-family: var(--tg-body-font-family) !important;
+    padding: 0.75rem 1.5rem !important;
+    margin: 0.25rem 0 !important;
+    border-radius: 0.5rem !important;
+    transition: all 0.3s ease !important;
+}
+
+.sidebar .nav-link:hover {
+    background: rgba(163, 177, 138, 0.2) !important; /* حالت هاور */
+}
+
+.sidebar .nav-link.active {
+    background: var(--tg-accent) !important; /* رنگ فعال */
+    color: var(--tg-primary) !important;
+    font-weight: var(--tg-fw-semi-bold) !important;
+    box-shadow: var(--shadow-sm) !important;
+}
+
+/* دکمه‌ها */
+.btn-primary {
+    background: var(--tg-accent) !important;
+    border-color: var(--tg-primary) !important;
+    color: var(--tg-background) !important;
+    font-weight: var(--tg-fw-medium) !important;
+    padding: 0.5rem 1.25rem !important;
+    border-radius: 0.35rem !important;
+    transition: all 0.3s ease !important;
+}
+
+.btn-primary:hover {
+    background: var(--tg-primary) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: var(--shadow-sm) !important;
+}
+
+/* دکمه Add (سبز) */
+a.addlink, .btn-success {
+    background: var(--tg-accent) !important; /* رنگ اصلی پروژه */
+    border-color: var(--tg-primary) !important;
+}
+
+/* دکمه Change (آبی) */
+a.changelink, .btn-info {
+    background: var(--tg-secondary) !important; /* رنگ ثانویه پروژه */
+    border-color: var(--tg-primary) !important;
+}
+
+/* دکمه خروج */
+#user-tools a:last-child {
+    background: var(--tg-accent) !important;
+    color: white !important;
+    padding: 8px 15px !important;
+    border-radius: 4px !important;
+    transition: all 0.3s !important;
+}
+
+#user-tools a:last-child:hover {
+    background: var(--tg-primary) !important;
+    transform: translateY(-2px) !important;
+}
+
+
+/* فرم‌ها */
+.form-control {
+    border: 2px solid var(--tg-border) !important;
+    background: var(--tg-background) !important;
+    border-radius: 0.35rem !important;
+    padding: 0.5rem 0.75rem !important;
+    transition: all 0.3s ease !important;
+}
+
+.form-control:focus {
+    border-color: var(--tg-secondary) !important;
+    box-shadow: 0 0 0 3px rgba(163, 177, 138, 0.3) !important;
+}
+
+/* جداول */
+.table th {
+    background: var(--tg-secondary) !important;
+    color: var(--tg-primary) !important;
+    font-weight: var(--tg-fw-semi-bold) !important;
+    padding: 1rem !important;
+}
+
+.table td {
+    background: var(--tg-background) !important;
+    border-color: var(--tg-border) !important;
+    padding: 0.75rem 1rem !important;
+}
+
+.table tr:hover td {
+    background: rgba(163, 177, 138, 0.1) !important;
+}
+
+/* کارت‌ها */
+.card {
+    background: var(--tg-background) !important;
+    border: 2px solid var(--tg-border) !important;
+    border-radius: 0.5rem !important;
+    box-shadow: var(--shadow-sm) !important;
+    transition: all 0.3s ease !important;
+}
+
+.card:hover {
+    box-shadow: var(--shadow-md) !important;
+    transform: translateY(-3px) !important;
+}
+
+.card-header {
+    background: var(--tg-secondary) !important;
+    color: var(--tg-primary) !important;
+    border-bottom: 2px solid var(--tg-accent) !important;
+    font-weight: var(--tg-fw-semi-bold) !important;
+    padding: 1rem 1.35rem !important;
+    border-radius: 0.5rem 0.5rem 0 0 !important;
+}
+
+/* انیمیشن‌ها */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+    animation: fadeIn 0.3s ease-in-out !important;
+}
+
+/* رسپانسیو برای موبایل */
+@media (max-width: 992px) {
+    .sidebar {
+        background: var(--tg-primary) !important;
+    }
+    
+    .nav-link {
+        color: var(--tg-background) !important;
+    }
+    
+    .navbar-brand {
+        font-size: 1.25rem !important;
+    }
+}
+
+/* استایل‌های سفارشی برای بخش‌های خاص */
+.object-tools {
+    margin-bottom: 1rem !important;
+}
+
+.object-tools a {
+    background: var(--tg-accent) !important;
+    color: white !important;
+    border-radius: 0.35rem !important;
+    padding: 0.5rem 1rem !important;
+    transition: all 0.3s ease !important;
+}
+
+.object-tools a:hover {
+    background: var(--tg-primary) !important;
+    transform: translateY(-2px) !important;
+}
+
+/* بهبود ظاهر فیلدهای فرم */
+.field-box {
+    background: white !important;
+    border-radius: 0.5rem !important;
+    padding: 1.5rem !important;
+    margin-bottom: 1.5rem !important;
+    box-shadow: var(--shadow-sm) !important;
+    border: 1px solid var(--tg-border) !important;
+}
+
+/* استایل‌های سفارشی برای لیست‌ها */
+ul.messagelist li {
+    background: var(--tg-secondary) !important;
+    color: var(--tg-primary) !important;
+    border-left: 4px solid var(--tg-accent) !important;
+}
+
+
+/* 
+:root {
+    --primary: #4e73df;
+    --secondary: #6c757d;
+    --success: #1cc88a;
+    --info: #36b9cc;
+    --warning: #f6c23e;
+    --danger: #e74a3b;
+    --light: #f8f9fc;
+    --dark: #5a5c69;
+}
+
+@font-face {
+    font-family: 'IRANSans';
+    src: url('../fonts/IRANSansWeb.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: 'IRANSans', Tahoma, sans-serif;
+    direction: rtl;
+    text-align: right;
+    background-color: #a3b18a;
+}
+
+.main-header {
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+    background: linear-gradient(135deg, var(--primary) 0%, #a3b18a 100%);
+}
+
+.card {
+    border-radius: 0.5rem;
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
+    border: none;
+    margin-bottom: 1.5rem;
+}
+
+.card-header {
+    background-color: #dad7cd;
+    border-bottom: 1px solid #e3e6f0;
+    padding: 1rem 1.35rem;
+    border-radius: 0.5rem 0.5rem 0 0 !important;
+}
+
+.table {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #5a5c69;
+}
+
+.table th {
+    border-top: none;
+    background-color: #f8f9fa;
+    font-weight: 600;
+}
+
+.btn {
+    border-radius: 0.35rem;
+    padding: 0.5rem 1.25rem;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    border-color: var(--primary);
+}
+
+.btn-primary:hover {
+    background-color: #2e59d9;
+    border-color: #2653d4;
+}
+
+.form-control {
+    border-radius: 0.35rem;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #d1d3e2;
+}
+
+.content-wrapper {
+    background-color: #f8f9fc;
+}
+
+.sidebar {
+    background-color: #fff;
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
+}
+
+.sidebar-dark-primary .nav-sidebar>.nav-item>.nav-link.active {
+    background-color: var(--primary);
+    color: #fff;
+}
+
+.fade-in {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.badge {
+    border-radius: 0.25rem;
+    padding: 0.35em 0.65em;
+    font-weight: 600;
+}
+
+.badge-success {
+    background-color: var(--success);
+}
+
+.badge-danger {
+    background-color: var(--danger);
+}
+
+.image-preview {
+    max-width: 200px;
+    max-height: 200px;
+    border-radius: 0.5rem;
+    border: 1px solid #e3e6f0;
+    padding: 0.5rem;
+    background-color: #fff;
+}
+
+.icon-lg {
+    font-size: 1.5rem;
+    vertical-align: middle;
+} */

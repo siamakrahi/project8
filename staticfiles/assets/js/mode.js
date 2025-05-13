@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // 3. حالت پیش‌فرض (light)
     const storedTheme = localStorage.getItem('theme');
     const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const initialTheme = storedTheme || (systemPrefersDark ? 'dark' : 'light');
+    const initialTheme = storedTheme || (systemPrefersDark ? 'light' : 'dark');
     
     // اعمال تم اولیه
     applyTheme(initialTheme);

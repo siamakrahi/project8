@@ -27,9 +27,10 @@
     border: 3px solid #eee;
 }
 .user-info {
-    background: rgba(255, 255, 255, 0.05);
+    background: #A3B18A;
     padding: 1.5rem;
     border-radius: 8px;
+
 }
 .detail-item {
     margin-bottom: 1.5rem;
@@ -38,12 +39,12 @@
 }
 .detail-label {
     font-weight: 600;
-    color: #dad7cd;
+    color: black;
     display: block;
     margin-bottom: 0.5rem;
 }
 .detail-value {
-    color: #fff;
+    color: black;
 }
 .security-badge {
     display: inline-block;
@@ -64,6 +65,8 @@
     padding-bottom: 0.5rem;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
+
+
 @media (max-width: 768px) {
     .profile-avatar img {
         width: 150px;

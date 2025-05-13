@@ -150,7 +150,7 @@ h4,
 h5,
 h6 {
   font-family: var(--tg-heading-font-family);
-  color: var(--tg-heading-color);
+  color: #344E41;
   margin-top: 0px;
   font-weight: var(--tg-fw-bold);
   line-height: var(--tg-heading-line-height);
